@@ -5,7 +5,7 @@ export default function MarketingPage() {
     <>
       <Navbar />
       <div className="flex flex-col justify-center items-center min-h-screen bg-muted">
-        <h1>MarketingPage</h1>
+        <h1>hello world</h1>
       </div>
     </>
   );
