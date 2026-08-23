@@ -8,12 +8,13 @@ import {
   PenLine,
 } from "lucide-react";
 import FeatureCard from "../_components/featureCard";
+import { JSX } from "react/jsx-runtime";
 
-export default function FeaturesPage() {
+export default function FeaturesPage(): JSX.Element {
   return (
     <div
       id="features"
-      className="flex flex-col justify-center items-center min-h-screen gap-10 p-4 sm:p-20"
+      className="flex flex-col justify-center items-center gap-10 px-4 py-16 sm:px-10 sm:py-20 lg:px-20"
     >
       <div className="flex flex-col items-center gap-2">
         <div className="flex items-center gap-2 rounded-full p-2 px-3 bg-blue-500/10 border border-blue-500/20">
@@ -21,7 +22,7 @@ export default function FeaturesPage() {
           <p className="text-sm font-semibold text-blue-500">features</p>
         </div>
         <div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-center">
             Everything you need
           </h1>
           <p className="text-base sm:text-lg text-gray-400 text-center">

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Copy, RotateCw, Sparkles } from "lucide-react";
+import { JSX } from "react/jsx-runtime";
 
-export default function Hero() {
+export default function Hero(): JSX.Element {
   return (
     <>
       <div className="flex flex-col md:flex-row justify-center items-center px-4 sm:px-10 py-10 sm:py-15 gap-y-10 md:gap-y-0">

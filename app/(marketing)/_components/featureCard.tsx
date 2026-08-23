@@ -1,3 +1,5 @@
+import { JSX } from "react/jsx-runtime";
+
 export default function FeatureCard({
   icon,
   title,
@@ -6,7 +8,7 @@ export default function FeatureCard({
   icon: React.ReactNode;
   title: string;
   description: string;
-}) {
+}): JSX.Element {
   return (
     <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
       {icon}
