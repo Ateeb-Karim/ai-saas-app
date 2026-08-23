@@ -22,6 +22,7 @@ export default function PricingPage(): JSX.Element {
           </p>
         </div>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto w-full items-start">
         <PricingCard
           name="free"
