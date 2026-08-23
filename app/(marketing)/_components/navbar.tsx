@@ -12,6 +12,7 @@ export default function Navbar(): JSX.Element {
     { name: "Features", href: "/#features" },
     { name: "Pricing", href: "/#pricing" },
     { name: "FAQs", href: "/#faqs" },
+    { name: "Contact", href: "/#contact" },
   ];
 
   return (
