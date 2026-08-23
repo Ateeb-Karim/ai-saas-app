@@ -16,7 +16,7 @@ export default function Navbar(): JSX.Element {
 
   return (
     <nav
-      className={`sticky top-0 z-50 bg-surface/80 backdrop-blur-xl ${
+      className={`sticky top-0 z-50 bg-[#12161f] backdrop-blur-xl ${
         isOpen ? "border-0" : "border-b border-white/10"
       }`}
     >
