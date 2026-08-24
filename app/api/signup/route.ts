@@ -1,8 +1,6 @@
-import { PrismaClient } from "@/app/generated/prisma/client";
+import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -36,5 +34,15 @@ export async function POST(req: Request) {
     },
   });
 
-  return NextResponse.json(user, { status: 201 });
+  if(user){
+    return NextResponse.json(
+      {message: "user created", user : user.id},
+      {status: 201}
+    )
+  } else {
+    return NextResponse.json(
+      {message:"ERROR!"},
+      {status: 500}
+    )
+  }
 }
