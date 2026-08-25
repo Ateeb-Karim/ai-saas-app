@@ -40,10 +40,10 @@ export default function Navbar(): JSX.Element {
 
         <div className="hidden md:flex items-center gap-4">
           <Link
-            href="/login"
+            href="/signin"
             className="font-semibold cursor-pointer hover:text-blue-500 transition-colors duration-200 ease-in-out"
           >
-            Login
+            sign in
           </Link>
           <Link
             href="/signup"
