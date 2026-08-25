@@ -28,4 +28,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    authorized: ({ auth, request }) => {
+      const isLoggedIn = !!auth?.user;
+      const isOnDashboard = request.nextUrl.pathname.startsWith("/dashboard");
+
+      if (isOnDashboard && !isLoggedIn) {
+        return false;
+      }
+
+      return true;
+    },
+  },
 });

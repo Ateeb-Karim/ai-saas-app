@@ -1,15 +1,16 @@
 "use client";
 
-import { AuthFormType } from "@/types/types";
+import { signInFormType } from "@/types/types";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { JSX, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function SigninPage(): JSX.Element {
   const router = useRouter();
 
-  const [formData, setFormData] = useState<AuthFormType>({
+  const [formData, setFormData] = useState<signInFormType>({
     email: "",
     password: "",
   });
@@ -19,14 +20,41 @@ export default function SigninPage(): JSX.Element {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    signIn("credentials", {
+    const result = await signIn("credentials", {
       email: formData.email,
       password: formData.password,
       redirect: false,
     });
+
+    if (!result?.ok) {
+      toast.error("Invalid credentials", {
+        icon: "❌",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+        position: "top-center",
+        duration: 3000,
+      });
+      setFormData({ email: "", password: "" });
+      return;
+    }
+
+    toast.success("Login successful", {
+      icon: "✅",
+      style: {
+        borderRadius: "10px",
+        background: "#333",
+        color: "#fff",
+      },
+      position: "top-center",
+      duration: 3000,
+    });
+
     router.push("/dashboard");
   };
 
@@ -55,20 +83,13 @@ export default function SigninPage(): JSX.Element {
           onChange={handleChange}
           placeholder="Enter your email"
           className="w-full border border-gray-500 rounded-md px-3 py-2 outline-none"
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
-        <div className="flex items-center justify-between">
-          <label htmlFor="password" className="text-sm font-medium">
-            Password
-          </label>
-          <Link
-            href="/forgot-password"
-            className="text-sm text-blue-500 cursor-pointer hover:underline "
-          >
-            Forgot your password?
-          </Link>
-        </div>
+        <label htmlFor="password" className="text-sm font-medium">
+          Password
+        </label>
         <input
           type="password"
           id="password"
@@ -77,6 +98,7 @@ export default function SigninPage(): JSX.Element {
           onChange={handleChange}
           placeholder="Enter your password"
           className="w-full border border-gray-500 rounded-md px-3 py-2 outline-none"
+          required
         />
       </div>
       <button

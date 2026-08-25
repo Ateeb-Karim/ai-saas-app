@@ -9,7 +9,14 @@ export type FormData = {
   message: string;
 };
 
-export type AuthFormType = {
+export type signInFormType = {
   email: string;
   password: string;
+};
+
+export type SignupFormType = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 };
