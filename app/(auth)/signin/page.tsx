@@ -1,14 +1,40 @@
 "use client";
 
+import { AuthFormType } from "@/types/types";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { JSX, useState } from "react";
 
 export default function SigninPage(): JSX.Element {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const router = useRouter();
+
+  const [formData, setFormData] = useState<AuthFormType>({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    signIn("credentials", {
+      email: formData.email,
+      password: formData.password,
+      redirect: false,
+    });
+    router.push("/dashboard");
+  };
 
   return (
-    <div className="space-y-4 border border-gray-700 p-4 w-full sm:max-w-sm mx-auto rounded-xl shadow-2xl bg-[#111522]">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 border border-gray-700 p-4 w-full sm:max-w-sm mx-auto rounded-xl shadow-2xl bg-[#111522]"
+    >
       <div className="flex flex-col gap-1">
         <h2 className="text-2xl font-bold text-center">
           nexus <span className="text-blue-500 uppercase">ai</span>
@@ -24,8 +50,9 @@ export default function SigninPage(): JSX.Element {
         <input
           type="email"
           id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
           placeholder="Enter your email"
           className="w-full border border-gray-500 rounded-md px-3 py-2 outline-none"
         />
@@ -45,8 +72,9 @@ export default function SigninPage(): JSX.Element {
         <input
           type="password"
           id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
           placeholder="Enter your password"
           className="w-full border border-gray-500 rounded-md px-3 py-2 outline-none"
         />
@@ -66,6 +94,6 @@ export default function SigninPage(): JSX.Element {
           Sign Up
         </Link>
       </p>
-    </div>
+    </form>
   );
 }

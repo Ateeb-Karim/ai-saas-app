@@ -1,13 +1,8 @@
 "use client";
 
+import { FormData } from "@/types/types";
 import { JSX, useState } from "react";
 import toast from "react-hot-toast";
-
-type FormData = {
-  name: string;
-  email: string;
-  message: string;
-};
 
 export default function ContactForm(): JSX.Element {
   const [formData, setFormData] = useState<FormData>({
