@@ -1,11 +1,11 @@
 "use client";
 
 import { signInFormType } from "@/types/types";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { JSX, useState } from "react";
 import toast from "react-hot-toast";
+import { signIn } from "@/auth";
 
 export default function SigninPage(): JSX.Element {
   const router = useRouter();

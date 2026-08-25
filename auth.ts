@@ -2,10 +2,16 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...authConfig,
   providers: [
     Credentials({
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
       authorize: async (creds) => {
         const email = creds?.email as string | undefined;
         const password = creds?.password as string | undefined;
@@ -28,16 +34,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    authorized: ({ auth, request }) => {
-      const isLoggedIn = !!auth?.user;
-      const isOnDashboard = request.nextUrl.pathname.startsWith("/dashboard");
-
-      if (isOnDashboard && !isLoggedIn) {
-        return false;
-      }
-
-      return true;
-    },
-  },
 });
