@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { JSX, useState } from "react";
 import toast from "react-hot-toast";
-import { signIn } from "@/auth";
+import { signIn } from "next-auth/react";
 
 export default function SigninPage(): JSX.Element {
   const router = useRouter();

@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start --webpack",
+    "lint": "eslint . --config .eslintrc.json --ext .ts,.tsx",
+    "lint:fix": "eslint . --config .eslintrc.json --ext .ts,.tsx --fix"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
@@ -28,7 +29,6 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.3.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

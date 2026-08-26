@@ -2,6 +2,7 @@ import { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
   providers: [],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     authorized: ({ auth, request }) => {
       const isLoggedIn = !!auth?.user;
