@@ -5,7 +5,7 @@ import { JSX } from "react/jsx-runtime";
 
 export default function SideBar(): JSX.Element {
   return (
-    <aside className="w-full flex-none md:block hidden md:w-64 bg-[#12161F] text-[#F5F6F8] shrink-0 flex-col h-screen">
+    <>
       <div className="h-full px-4 py-6 flex flex-col">
         <h2 className="text-xl font-bold mb-6 px-2">
           nexus <span className="text-blue-500">AI</span>
@@ -53,6 +53,6 @@ export default function SideBar(): JSX.Element {
           <p>Log Out</p>
         </button>
       </div>
-    </aside>
+    </>
   );
 }
