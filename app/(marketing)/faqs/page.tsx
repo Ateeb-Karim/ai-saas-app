@@ -5,7 +5,7 @@ import { faqs } from "./questions";
 
 export default function FaqsPage(): JSX.Element {
   return (
-    <div
+    <section
       id="faqs"
       className="flex flex-col justify-center items-center gap-10 px-4 py-16 sm:px-10 sm:py-20 lg:px-20"
     >
@@ -26,6 +26,6 @@ export default function FaqsPage(): JSX.Element {
           <FAQCard key={i} question={faq.question} answer={faq.answer} />
         ))}
       </div>
-    </div>
+    </section>
   );
 }

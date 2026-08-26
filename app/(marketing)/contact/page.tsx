@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function ContactPage() {
   return (
-    <div
+    <section
       id="contact"
       className="flex flex-col justify-center items-center gap-10 px-4 py-16 sm:px-10 sm:py-20 lg:px-20"
     >
@@ -93,6 +93,6 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

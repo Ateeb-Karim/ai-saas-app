@@ -4,7 +4,7 @@ import { JSX } from "react/jsx-runtime";
 
 export default function PricingPage(): JSX.Element {
   return (
-    <div
+    <section
       id="pricing"
       className="flex flex-col justify-center items-center gap-10 px-4 py-16 sm:px-10 sm:py-20 lg:px-20"
     >
@@ -62,6 +62,6 @@ export default function PricingPage(): JSX.Element {
           button="Buy Now"
         />
       </div>
-    </div>
+    </section>
   );
 }

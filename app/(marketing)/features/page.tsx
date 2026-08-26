@@ -12,7 +12,7 @@ import { JSX } from "react/jsx-runtime";
 
 export default function FeaturesPage(): JSX.Element {
   return (
-    <div
+    <section
       id="features"
       className="flex flex-col justify-center items-center gap-10 px-4 py-16 sm:px-10 sm:py-20 lg:px-20"
     >
@@ -68,6 +68,6 @@ export default function FeaturesPage(): JSX.Element {
           description="write high-quality blogs using ai with a simple text prompt"
         />
       </div>
-    </div>
+    </section>
   );
 }

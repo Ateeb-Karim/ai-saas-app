@@ -20,3 +20,9 @@ export type SignupFormType = {
   password: string;
   confirmPassword: string;
 };
+
+export type NavLinksType = {
+  title: string;
+  href: string;
+  icon?: string;
+};
