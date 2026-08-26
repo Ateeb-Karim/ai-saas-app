@@ -44,6 +44,7 @@ export default function NavItems() {
       icon: "PenLine",
     },
   ];
+
   return (
     <ul className="space-y-2">
       {navlinks.map((link: NavLinksType, i: number): JSX.Element => {
@@ -52,20 +53,18 @@ export default function NavItems() {
           <li key={i}>
             <Link
               href={link.href}
-              className={`flex items-center gap-2 text-left px-2 py-2 rounded hover:bg-gray-700 w-full ${
-                isActive ? "bg-blue-500 text-white" : "bg-gray-900"
+              className={`flex items-center gap-2 text-left px-2 py-2 rounded w-full ${
+                isActive ? "bg-blue-500 text-white" : "hover:bg-[#1A1F2B]"
               }`}
             >
               {link.icon === "MessageSquare" && (
                 <MessageSquare className="h-5 w-5" />
               )}
-              {link.icon === "Image" && <Image className="h-5 w-5 mr-2" />}
-              {link.icon === "Code" && <Code className="h-5 w-5 mr-2" />}
-              {link.icon === "FileText" && (
-                <FileText className="h-5 w-5 mr-2" />
-              )}
-              {link.icon === "Mail" && <Mail className="h-5 w-5 mr-2" />}
-              {link.icon === "PenLine" && <PenLine className="h-5 w-5 mr-2" />}
+              {link.icon === "Image" && <Image className="h-5 w-5" />}
+              {link.icon === "Code" && <Code className="h-5 w-5" />}
+              {link.icon === "FileText" && <FileText className="h-5 w-5" />}
+              {link.icon === "Mail" && <Mail className="h-5 w-5" />}
+              {link.icon === "PenLine" && <PenLine className="h-5 w-5" />}
               {link.title}
             </Link>
           </li>
