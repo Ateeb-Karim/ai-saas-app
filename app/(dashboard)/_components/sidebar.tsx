@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import NavItems from "@/app/(dashboard)/_components/navitems";
 import { LayoutGrid, LogOut, RotateCcwClock, Settings } from "lucide-react";
@@ -6,7 +8,7 @@ import { JSX } from "react/jsx-runtime";
 export default function SideBar({
   setIsOpen,
 }: {
-  setIsOpen: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  setIsOpen?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }): JSX.Element {
   return (
     <>
@@ -16,6 +18,7 @@ export default function SideBar({
         </h2>
 
         <Link
+          onClick={() => setIsOpen?.(false)}
           href="/dashboard"
           className="flex items-center gap-2 text-left px-2 py-2 rounded hover:bg-[#1A1F2B] w-full"
         >
@@ -35,6 +38,7 @@ export default function SideBar({
         </p>
 
         <Link
+          onClick={() => setIsOpen?.(false)}
           href="/dashboard/history"
           className="flex items-center gap-2 text-left px-2 py-2 rounded hover:bg-[#1A1F2B] w-full"
         >
@@ -42,6 +46,7 @@ export default function SideBar({
           <p>History</p>
         </Link>
         <Link
+          onClick={() => setIsOpen?.(false)}
           href="/dashboard/settings"
           className="flex items-center gap-2 text-left px-2 py-2 rounded hover:bg-[#1A1F2B] w-full"
         >

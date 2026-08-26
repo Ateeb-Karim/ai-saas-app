@@ -23,28 +23,28 @@ export default function NavItems({
   const navlinks: NavLinksType[] = [
     {
       title: "Chat Assistant",
-      href: "/dashboard/chat-assistant",
+      href: "/dashboard/chatassistant",
       icon: "MessageSquare",
     },
     {
       title: "Image Generator",
-      href: "/dashboard/image-generator",
+      href: "/dashboard/imagegenerator",
       icon: "Image",
     },
     {
       title: "Code Generator",
-      href: "/dashboard/code-generator",
+      href: "/dashboard/codegenerator",
       icon: "Code",
     },
     { title: "Summarizer", href: "/dashboard/summarizer", icon: "FileText" },
     {
       title: "Email Generator",
-      href: "/dashboard/email-generator",
+      href: "/dashboard/emailgenerator",
       icon: "Mail",
     },
     {
       title: "Blog Generator",
-      href: "/dashboard/blog-generator",
+      href: "/dashboard/bloggenerator",
       icon: "PenLine",
     },
   ];
