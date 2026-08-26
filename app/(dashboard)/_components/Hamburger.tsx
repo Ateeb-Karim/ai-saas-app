@@ -17,7 +17,7 @@ export default function Hamburger() {
       </button>
       {isOpen && (
         <div className="absolute top-16 z-50 left-0 border-l border-white/10 bg-[#12161F] h-screen w-full flex-none  md:w-64 text-[#F5F6F8] shrink-0 flex-col ">
-          <SideBar />
+          <SideBar setIsOpen={() => setIsOpen(false)} />
         </div>
       )}
     </div>

@@ -3,7 +3,11 @@ import NavItems from "@/app/(dashboard)/_components/navitems";
 import { LayoutGrid, LogOut, RotateCcwClock, Settings } from "lucide-react";
 import { JSX } from "react/jsx-runtime";
 
-export default function SideBar(): JSX.Element {
+export default function SideBar({
+  setIsOpen,
+}: {
+  setIsOpen: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+}): JSX.Element {
   return (
     <>
       <div className="h-full px-4 py-6 flex flex-col">
@@ -23,7 +27,7 @@ export default function SideBar(): JSX.Element {
           AI tools
         </p>
         <nav className="grow">
-          <NavItems />
+          <NavItems setIsOpen={setIsOpen} />
         </nav>
 
         <p className="text-[#8B93A5] border-b border-[#2A2F3A] my-2 pb-1 text-xs uppercase tracking-wide">
