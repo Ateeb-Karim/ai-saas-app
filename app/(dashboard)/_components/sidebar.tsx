@@ -4,6 +4,8 @@ import Link from "next/link";
 import NavItems from "@/app/(dashboard)/_components/navitems";
 import { LayoutGrid, LogOut, RotateCcwClock, Settings } from "lucide-react";
 import { JSX } from "react/jsx-runtime";
+import { signOut } from "next-auth/react";
+import toast from "react-hot-toast";
 
 export default function SideBar({
   setIsOpen,
@@ -55,7 +57,20 @@ export default function SideBar({
         </Link>
 
         <button
-          type="button"
+          onClick={() => (
+            setIsOpen?.(false),
+            toast.success("Logout successful", {
+              icon: "✅",
+              style: {
+                borderRadius: "10px",
+                background: "#333",
+                color: "#fff",
+              },
+              position: "top-center",
+              duration: 3000,
+            }),
+            signOut({ callbackUrl: "/signin" })
+          )}
           className="flex items-center gap-2 border-t border-[#2A2F3A] text-left px-2 py-2 rounded hover:bg-[#1A1F2B] w-full mt-2 cursor-pointer"
         >
           <LogOut className="h-5 w-5" />
