@@ -16,6 +16,13 @@ export default function Hamburger() {
         {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
       </button>
       {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {isOpen && (
         <div className="absolute top-16 z-50 left-0 border-l border-white/10 bg-[#12161F] h-screen w-full flex-none  md:w-64 text-[#F5F6F8] shrink-0 flex-col ">
           <SideBar setIsOpen={() => setIsOpen(false)} />
         </div>

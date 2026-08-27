@@ -16,7 +16,7 @@ import { JSX } from "react/jsx-runtime";
 export default function NavItems({
   setIsOpen,
 }: {
-  setIsOpen: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  setIsOpen?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }) {
   const pathname = usePathname();
 
@@ -56,7 +56,7 @@ export default function NavItems({
         return (
           <li key={i}>
             <Link
-              onClick={() => setIsOpen((prevVar) => !prevVar)}
+              onClick={() => setIsOpen?.((prevVar) => !prevVar)}
               href={link.href}
               className={`flex items-center gap-2 text-left px-2 py-2 rounded w-full ${
                 isActive ? "bg-blue-500 text-white" : "hover:bg-[#1A1F2B]"
