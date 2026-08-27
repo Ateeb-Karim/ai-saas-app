@@ -13,8 +13,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: async (creds) => {
-        const email = creds?.email as string | undefined;
-        const password = creds?.password as string | undefined;
+        const email = creds?.email as string;
+        const password = creds?.password as string;
 
         if (!email || !password) {
           throw new Error("Please enter email and password");

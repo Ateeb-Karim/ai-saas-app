@@ -4,7 +4,11 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { name, email, password } = body;
+  const {
+    name,
+    email,
+    password,
+  }: { name: string; email: string; password: string } = body;
 
   const existingUser = await prisma.user.findUnique({
     where: { email },
@@ -34,15 +38,12 @@ export async function POST(req: Request) {
     },
   });
 
-  if(user){
+  if (user) {
     return NextResponse.json(
-      {message: "user created", user : user.id},
-      {status: 201}
-    )
+      { message: "user created", user: user.id },
+      { status: 201 },
+    );
   } else {
-    return NextResponse.json(
-      {message:"ERROR!"},
-      {status: 500}
-    )
+    return NextResponse.json({ message: "ERROR!" }, { status: 500 });
   }
 }
