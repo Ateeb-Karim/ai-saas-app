@@ -12,7 +12,7 @@ export default async function Navbar(): Promise<JSX.Element> {
       </div>
       <div className="flex items-center justify-end w-full md:justify-end gap-3">
         <span className="text-sm text-[#F5F6F8] hidden md:block">
-          Welcome,{" "}
+          welcome,{" "}
           {session?.user?.name
             ? `${session?.user?.name?.charAt(0)?.toUpperCase()}${session?.user?.name?.slice(1)}`
             : "User"}
