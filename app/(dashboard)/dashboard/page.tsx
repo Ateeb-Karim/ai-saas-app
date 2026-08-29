@@ -17,19 +17,19 @@ export default async function DashboardPage(): Promise<JSX.Element> {
               ? `${session?.user?.name.charAt(0).toUpperCase()}${session?.user?.name.slice(1)}`
               : "User"}
           </h1>
-          <p className="text-[#A1A5AE] font-medium text-sm sm:text-base">
+          <p className="text-[#8B93A5] font-medium text-sm sm:text-base">
             Here's what happening with your workspace.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full py-4">
-          <DashboardCards heading="Generations this month" description="12" />
+          <DashboardCards heading="Generations this month" description="0" />
           <DashboardCards heading="Tools used" description="0 / 6" />
           <DashboardCards heading="Current Plan" description="Free" />
         </div>
 
         <div className="flex flex-col w-full py-4">
-          <p className="text-[#A1A5AE] text-sm mb-4">Recent activity</p>
+          <p className="text-[#8B93A5] text-sm mb-4">Recent activity</p>
           <div className="flex flex-col gap-2">
             <Activity
               icon={<Code className="text-blue-500 w-5 h-5" />}
