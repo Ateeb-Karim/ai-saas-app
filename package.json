@@ -10,6 +10,7 @@
     "lint:fix": "eslint . --config .eslintrc.json --ext .ts,.tsx --fix"
   },
   "dependencies": {
+    "@google/genai": "^2.19.0",
     "@prisma/client": "^6.19.3",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.4.2",

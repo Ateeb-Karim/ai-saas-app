@@ -9,6 +9,7 @@ import { JSX } from "react/jsx-runtime";
 
 export default function SignupPage(): JSX.Element {
   const router = useRouter();
+
   const [formData, setFormData] = useState<SignupFormType>({
     name: "",
     email: "",
@@ -21,7 +22,7 @@ export default function SignupPage(): JSX.Element {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const response = await fetch("/api/signup", {
