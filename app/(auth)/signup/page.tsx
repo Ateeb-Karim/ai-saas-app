@@ -44,12 +44,14 @@ export default function SignupPage(): JSX.Element {
         position: "top-center",
         duration: 3000,
       });
+
       setFormData({
         name: "",
         email: "",
         password: "",
         confirmPassword: "",
       });
+
       return;
     }
 

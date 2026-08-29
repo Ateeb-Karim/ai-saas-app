@@ -20,7 +20,7 @@ export default function SigninPage(): JSX.Element {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const result = await signIn("credentials", {
@@ -40,7 +40,9 @@ export default function SigninPage(): JSX.Element {
         position: "top-center",
         duration: 3000,
       });
+
       setFormData({ email: "", password: "" });
+
       return;
     }
 

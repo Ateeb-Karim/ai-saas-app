@@ -28,7 +28,7 @@ export type NavLinksType = {
 };
 
 export type SignUpPOSTrequest = {
-  name: string;
-  email: string;
+  name:string;
+  email:string;
   password: string;
-};
+}
