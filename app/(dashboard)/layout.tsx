@@ -1,6 +1,6 @@
 import React from "react";
 import SideBar from "./_components/sidebar";
-import Topbar from "./_components/navbar";
+import Navbar from "./_components/navbar";
 
 export default function DashboardLayout({
   children,
@@ -13,7 +13,7 @@ export default function DashboardLayout({
         <SideBar />
       </aside>
       <div className="flex flex-col grow w-full overflow-y-auto md:overflow-hidden md:rounded-2xl">
-        <Topbar />
+        <Navbar />
         <section className="flex flex-col items-center justify-center p-6 grow overflow-hidden md:overflow-visible">
           {children}
         </section>
