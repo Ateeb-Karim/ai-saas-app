@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { Copy, FileText, Loader2 } from "lucide-react";
 import { JSX } from "react/jsx-runtime";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import ReactMarkdown from "react-markdown";
 
 export default function SummarizerPage(): JSX.Element {
   const [text, setText] = useState<string>("");
@@ -57,7 +58,7 @@ export default function SummarizerPage(): JSX.Element {
   };
 
   return (
-    <div className="flex flex-col items-start w-full text-[#F5F6F8]">
+    <div className="flex flex-col items-start w-full h-full text-[#F5F6F8]">
       <div className="flex items-center gap-2">
         <div className="p-2 bg-[#12161F] rounded-lg">
           <FileText className="h-6 w-6 text-blue-500" />
@@ -88,7 +89,7 @@ export default function SummarizerPage(): JSX.Element {
         <button
           onClick={generateSummary}
           disabled={isLoading}
-          className="w-full px-6 py-2 mt-2 bg-blue-500 rounded-lg text-white font-medium  transition-all duration-200 hover:bg-blue-600  active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-6 py-2 mt-2 bg-blue-500 rounded-lg text-white font-medium  transition-all duration-200 hover:bg-blue-600  active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
@@ -116,10 +117,14 @@ export default function SummarizerPage(): JSX.Element {
           <p>Copy</p>
         </button>
       </div>
-      <div className="mt-2 h-full w-full bg-[#12161F] border border-[#2A2F3A] rounded-lg p-2">
-        <p className="text-sm text-center text-[#F5F6F8] font-medium">
-          {!summary ? "No summary yet" : summary}
-        </p>
+      <div className="mt-2 h-fit w-full bg-[#12161F] border border-[#2A2F3A] rounded-lg p-2">
+        {!summary ? (
+          "No summary yet"
+        ) : (
+          <div className="text-sm text-left text-[#F5F6F8]">
+            <ReactMarkdown>{summary}</ReactMarkdown>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -13,29 +13,29 @@ export default function DashboardLayout({
       <aside className="w-full flex-none md:block hidden md:w-64 bg-[#12161F] text-[#F5F6F8] shrink-0 flex-col h-screen">
         <SideBar />
       </aside>
-      <div className="flex flex-col grow w-full overflow-y-auto md:overflow-hidden md:rounded-2xl">
+      <div className="flex flex-col grow w-full h-screen overflow-y-auto md:overflow-hidden">
         <Navbar />
-        <section className="flex flex-col items-center justify-center p-6 grow overflow-hidden md:overflow-visible">
+        <section className="flex flex-col items-center justify-center grow px-4 py-4 sm:p-6 overflow-auto">
           {children}
-          <Toaster
-            toastOptions={{
-              duration: 800,
-              position: "top-center",
-              style: {
-                borderRadius: "25px",
-                background: "#0A0E14",
-                color: "#F5F6F8",
-              },
-              success: {
-                icon: "✅",
-              },
-              error: {
-                icon: "❌",
-              },
-            }}
-          />
         </section>
       </div>
+      <Toaster
+        toastOptions={{
+          duration: 800,
+          position: "top-center",
+          style: {
+            borderRadius: "25px",
+            background: "#0A0E14",
+            color: "#F5F6F8",
+          },
+          success: {
+            icon: "✅",
+          },
+          error: {
+            icon: "❌",
+          },
+        }}
+      />
     </main>
   );
 }
