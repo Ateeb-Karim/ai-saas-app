@@ -1,6 +1,7 @@
 import React from "react";
 import SideBar from "./_components/sidebar";
 import Navbar from "./_components/navbar";
+import { Toaster } from "react-hot-toast";
 
 export default function DashboardLayout({
   children,
@@ -16,6 +17,23 @@ export default function DashboardLayout({
         <Navbar />
         <section className="flex flex-col items-center justify-center p-6 grow overflow-hidden md:overflow-visible">
           {children}
+          <Toaster
+            toastOptions={{
+              duration: 800,
+              position: "top-center",
+              style: {
+                borderRadius: "25px",
+                background: "#0A0E14",
+                color: "#F5F6F8",
+              },
+              success: {
+                icon: "✅",
+              },
+              error: {
+                icon: "❌",
+              },
+            }}
+          />
         </section>
       </div>
     </main>
