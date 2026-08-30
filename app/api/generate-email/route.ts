@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { tone, purpose } = await request.json();
+    const { purpose, tone } = await request.json();
 
-    if (!tone || !purpose) {
+    if (!purpose || !tone) {
       return NextResponse.json(
-        { error: "Tone and purpose are required" },
+        { error: "Purpose and tone are required" },
         { status: 400 },
       );
     }
@@ -21,6 +21,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ email: email.text });
   } catch (e) {
+    console.error(e);
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 },

@@ -5,6 +5,7 @@ import { Copy, FileText, Loader2 } from "lucide-react";
 import { JSX } from "react/jsx-runtime";
 import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
+import ShowCard from "../_components/showcard";
 
 export default function SummarizerPage(): JSX.Element {
   const [text, setText] = useState<string>("");
@@ -59,17 +60,11 @@ export default function SummarizerPage(): JSX.Element {
 
   return (
     <div className="flex flex-col items-start w-full h-full text-[#F5F6F8]">
-      <div className="flex items-center gap-2">
-        <div className="p-2 bg-[#12161F] rounded-lg">
-          <FileText className="h-6 w-6 text-blue-500" />
-        </div>
-        <div>
-          <p className="text-lg text-[#F5F6F8]">Text Summarizer</p>
-          <p className="text-[#8B93A5] font-normal text-sm">
-            Paste your text here to get concise summary.
-          </p>
-        </div>
-      </div>
+      <ShowCard
+        icon={<FileText className="h-6 w-6 text-blue-500" />}
+        title="Text Summarizer"
+        description="Paste your text here to get concise summary."
+      />
       <div className="w-full">
         <p className="font-normal text-md mt-5">Your text ...</p>
         <textarea
