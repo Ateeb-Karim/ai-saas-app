@@ -37,3 +37,8 @@ export interface Tone {
   title: string;
   active: boolean;
 }
+
+export interface Length {
+  title: string;
+  active: boolean;
+}
