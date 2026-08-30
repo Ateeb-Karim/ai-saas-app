@@ -9,6 +9,7 @@ import ReactMarkdown from "react-markdown";
 import toast from "react-hot-toast";
 
 export default function BlogGenerator(): JSX.Element {
+  const [topic, setTopic] = useState<string>("");
   const [blog, setBlog] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tones, setTones] = useState<Tone[]>([
@@ -16,7 +17,7 @@ export default function BlogGenerator(): JSX.Element {
     { title: "professional", active: false },
     { title: "persuasive", active: false },
   ]);
-  const [lenght, setLength] = useState<Length[]>([
+  const [length, setLength] = useState<Length[]>([
     { title: "short", active: true },
     { title: "medium", active: false },
     { title: "long", active: false },
@@ -33,8 +34,8 @@ export default function BlogGenerator(): JSX.Element {
 
   const toggleActiveLength = (i: number) => {
     setLength(
-      lenght.map((length: Length, idx) => ({
-        ...length,
+      length.map((len: Length, idx) => ({
+        ...len,
         active: i == idx,
       })),
     );
@@ -46,9 +47,15 @@ export default function BlogGenerator(): JSX.Element {
       const response = await fetch("/api/generate-blog", {
         method: "POST",
         body: JSON.stringify({
-          blog: blog,
-          tone: tones.filter((tone: Tone) => tone.active)[0].title,
-          length: lenght.filter((length: Length) => length.active)[0].title,
+          topic: topic,
+          tone:
+            tones
+              .filter((tone: Tone) => tone.active === true)
+              .map((tone: Tone) => tone.title)[0] ?? "Casual",
+          length:
+            length
+              .filter((len: Length) => len.active === true)
+              .map((len: Length) => len.title)[0] ?? "short",
         }),
         headers: {
           "content-type": "application/json",
@@ -56,10 +63,15 @@ export default function BlogGenerator(): JSX.Element {
         cache: "no-cache",
       });
 
+      if (!response.ok) {
+        throw new Error("Failed to generate blog");
+      }
+
       const data = await response.json();
       setBlog(data.blog);
+      setIsLoading(false);
     } catch (error) {
-      console.error(error);
+      setIsLoading(false);
       toast.error("Failed to generate blog. Please try again", {
         duration: 3000,
         position: "top-center",
@@ -71,7 +83,7 @@ export default function BlogGenerator(): JSX.Element {
   };
 
   const clear = () => {
-    setIsLoading(false);
+    setTopic("");
     setBlog("");
     setTones(
       tones.map((tone: Tone, idx) => ({
@@ -80,11 +92,17 @@ export default function BlogGenerator(): JSX.Element {
       })),
     );
     setLength(
-      lenght.map((length: Length, idx) => ({
-        ...length,
+      length.map((len: Length, idx) => ({
+        ...len,
         active: idx === 0,
       })),
     );
+  };
+
+  const CopyToClipBoard = () => {
+    if (!blog) return;
+    navigator.clipboard.writeText(blog);
+    toast.success("Copied to clipboard");
   };
 
   return (
@@ -99,16 +117,16 @@ export default function BlogGenerator(): JSX.Element {
           Blog idea/topic...
         </p>
         <textarea
-          value={blog}
-          onChange={(e) => setBlog(e.target.value)}
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
           rows={5}
           className="w-full px-3 py-3 outline-none bg-[#0F141A] border border-[#2A2F3A] rounded-lg text-sm sm:text-md resize-none"
-          placeholder="e.g: what is a blog... "
+          placeholder="e.g: why remote teams need async communication... "
         />
       </div>
       <div className="w-full">
         <p className="font-normal text-sm sm:text-md mt-5">Tone of blog</p>
-        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-2 mt-1">
+        <div className="grid grid-cols-3 gap-2 mt-1">
           {tones.map(
             (tone: Tone, i: number): JSX.Element => (
               <button
@@ -124,17 +142,17 @@ export default function BlogGenerator(): JSX.Element {
           )}
         </div>
         <p className="font-normal text-sm sm:text-md mt-5">Length of blog</p>
-        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-2 mt-1">
-          {lenght.map(
-            (length: Length, i: number): JSX.Element => (
+        <div className="grid grid-cols-3 gap-2 mt-1">
+          {length.map(
+            (len: Length, i: number): JSX.Element => (
               <button
                 key={i}
-                title={length.title}
+                title={len.title}
                 onClick={() => toggleActiveLength(i)}
                 className={`w-full px-2 py-3 outline-none cursor-pointer bg-[#0F141A] border border-[#2A2F3A] rounded-lg text-sm sm:text-md transition-all duration-200 hover:bg-blue-600 active:scale-95
-                ${lenght[i].active ? "bg-blue-700 text-white" : "text-[#F5F6F8]"}`}
+                ${length[i].active ? "bg-blue-700 text-white" : "text-[#F5F6F8]"}`}
               >
-                {length.title}
+                {len.title}
               </button>
             ),
           )}
@@ -143,6 +161,7 @@ export default function BlogGenerator(): JSX.Element {
       <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-1">
         <button
           onClick={generateBlog}
+          disabled={isLoading}
           className="w-full sm:flex-1 px-6 py-2 mt-2 bg-blue-500 rounded-lg text-white font-medium transition-all duration-200 hover:bg-blue-600 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? (
@@ -163,7 +182,10 @@ export default function BlogGenerator(): JSX.Element {
       </div>
       <div className="w-full flex items-center justify-between mt-4">
         <p className="text-base sm:text-lg text-[#F5F6F8]">Generated Blog</p>
-        <button className="flex items-center gap-1 text-blue-500 text-sm sm:text-md cursor-pointer transition-all duration-200 hover:scale-99 active:scale-95">
+        <button
+          onClick={CopyToClipBoard}
+          className="flex items-center gap-1 text-blue-500 text-sm sm:text-md cursor-pointer transition-all duration-200 hover:scale-99 active:scale-95"
+        >
           <Copy className="h-4 w-4" />
           <p>Copy</p>
         </button>

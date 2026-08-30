@@ -31,7 +31,6 @@ export default function SummarizerPage(): JSX.Element {
       }
 
       const data = await response.json();
-
       setSummary(data.summary);
       setIsLoading(false);
     } catch (e) {

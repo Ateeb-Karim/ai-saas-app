@@ -53,8 +53,10 @@ export default function EmailGenerator(): JSX.Element {
 
       const data = await response.json();
       setEmail(data.email);
+      setIsLoading(false);
+      console.log(email);
     } catch (e) {
-      console.error(e);
+      setIsLoading(false);
       toast.error("Failed to generate email. Please try again", {
         duration: 3000,
         position: "top-center",
