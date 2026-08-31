@@ -65,7 +65,9 @@ export default function SummarizerPage(): JSX.Element {
         description="Paste your text here to get concise summary."
       />
       <div className="w-full">
-        <p className="font-normal text-md mt-5">Your text ...</p>
+        <p className="text-base sm:text-lg text-[#F5F6F8] mt-4">
+          Your text ...
+        </p>
         <textarea
           name=""
           id=""
@@ -113,7 +115,7 @@ export default function SummarizerPage(): JSX.Element {
       </div>
       <div className="mt-2 h-fit w-full bg-[#12161F] border border-[#2A2F3A] rounded-lg p-2">
         {!summary ? (
-          "No summary yet"
+          <p className="text-sm text-center text-[#8B93A5]">No summary yet</p>
         ) : (
           <div className="text-sm text-left text-[#F5F6F8]">
             <ReactMarkdown>{summary}</ReactMarkdown>

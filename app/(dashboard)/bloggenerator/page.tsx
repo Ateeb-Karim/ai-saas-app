@@ -113,7 +113,7 @@ export default function BlogGenerator(): JSX.Element {
         description="Generate professional blog posts tailored to any scenario."
       />
       <div className="w-full">
-        <p className="font-normal text-sm sm:text-md mt-5">
+        <p className="text-base sm:text-lg text-[#F5F6F8] mt-4">
           Blog idea/topic...
         </p>
         <textarea
