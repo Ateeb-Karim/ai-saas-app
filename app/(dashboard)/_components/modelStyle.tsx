@@ -1,7 +1,7 @@
 import { Bot } from "lucide-react";
 import { JSX } from "react/jsx-runtime";
 
-export default function AssisstantStyle({
+export default function ModelStyle({
   content,
 }: {
   content: string;

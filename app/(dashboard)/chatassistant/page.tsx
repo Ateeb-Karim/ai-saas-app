@@ -2,18 +2,23 @@
 
 import { MessageCircle, Send } from "lucide-react";
 import React, { JSX, useState } from "react";
-import AssisstantStyle from "../_components/assisstantStyle";
 import UserStyle from "../_components/userStyle";
 import ShowCard from "../_components/showcard";
+import ModelStyle from "../_components/modelStyle";
 
 export default function ChatAssistant(): React.JSX.Element {
   const [messages, setMessages] = useState<
-    { role: "user" | "assistant"; content: string }[]
+    { role: "user" | "model"; content: string }[]
   >([]);
   const [input, setInput] = useState<string>("");
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!input.trim()) return;
+
+    setMessages((prev) => [...prev, { role: "user", content: input }]);
+    setInput("");
   };
 
   return (
@@ -30,7 +35,7 @@ export default function ChatAssistant(): React.JSX.Element {
             return msg.role === "user" ? (
               <UserStyle key={i} content={msg.content} />
             ) : (
-              <AssisstantStyle key={i} content={msg.content} />
+              <ModelStyle key={i} content={msg.content} />
             );
           },
         )}
@@ -42,7 +47,7 @@ export default function ChatAssistant(): React.JSX.Element {
       >
         <textarea
           rows={1}
-          className="flex-1 p-2 bg-transparent border-none outline-none text-sm sm:text-base resize-none max-h-30 placeholder:text-gray-500"
+          className="flex-1 p-2 bg-transparent border-none outline-none text-sm sm:text-base resize-none max-h-30 placeholder:text-gray-500 scrollbar-hide"
           placeholder="Type your message here...."
           value={input}
           onChange={(e) => setInput(e.target.value)}
