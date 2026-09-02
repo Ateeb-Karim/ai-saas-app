@@ -1,24 +1,52 @@
 "use client";
 
-import { MessageCircle, Send } from "lucide-react";
+import { Loader2, MessageCircle, Send } from "lucide-react";
 import React, { JSX, useState } from "react";
 import UserStyle from "../_components/userStyle";
 import ShowCard from "../_components/showcard";
 import ModelStyle from "../_components/modelStyle";
+import toast from "react-hot-toast";
 
 export default function ChatAssistant(): React.JSX.Element {
+  const [input, setInput] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<
     { role: "user" | "model"; content: string }[]
   >([]);
-  const [input, setInput] = useState<string>("");
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!input.trim()) return;
 
     setMessages((prev) => [...prev, { role: "user", content: input }]);
     setInput("");
+
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          message: input,
+          history: messages,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("failed to send message");
+      }
+
+      const data = await response.json();
+      setMessages((prev) => [...prev, { role: "model", content: data.reply }]);
+    } catch (error) {
+      console.error("failed to send message");
+      toast.error("Failed to send message");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -54,10 +82,15 @@ export default function ChatAssistant(): React.JSX.Element {
         />
         <button
           type="submit"
+          disabled={isLoading || !input.trim()}
           className="p-3 bg-blue-500 rounded-xl text-white font-medium transition-all duration-200 hover:bg-blue-600 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
           aria-label="Send message"
         >
-          <Send className="h-5 w-5" />
+          {isLoading ? (
+            <Loader2 className="h-5 w-5 animate-spin" />
+          ) : (
+            <Send className="h-5 w-5" />
+          )}
         </button>
       </form>
     </div>
