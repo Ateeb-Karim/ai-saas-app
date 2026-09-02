@@ -1,7 +1,7 @@
 "use client";
 
-import { Loader2, MessageCircle, Send } from "lucide-react";
-import React, { JSX, useState } from "react";
+import { Bot, Loader2, MessageCircle, Send } from "lucide-react";
+import React, { JSX, useEffect, useRef, useState } from "react";
 import UserStyle from "../_components/userStyle";
 import ShowCard from "../_components/showcard";
 import ModelStyle from "../_components/modelStyle";
@@ -13,6 +13,16 @@ export default function ChatAssistant(): React.JSX.Element {
   const [messages, setMessages] = useState<
     { role: "user" | "model"; content: string }[]
   >([]);
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading]);
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,6 +76,21 @@ export default function ChatAssistant(): React.JSX.Element {
               <ModelStyle key={i} content={msg.content} />
             );
           },
+        )}
+        {isLoading && (
+          <div className="flex items-start gap-3 max-w-[85%] sm:max-w-[75%] self-start">
+            <div className="flex items-center justify-center p-2 rounded-xl bg-[#0A0E14] border border-[#2A2F3A] shrink-0">
+              <Bot className="h-5 w-5 text-blue-500" />
+            </div>
+            <div
+              ref={messagesEndRef}
+              className="p-3 border border-[#2A2F3A] rounded-2xl rounded-tl-xs bg-linear-to-br from-[#141924] to-[#1E222D] flex items-center gap-1"
+            >
+              <span className="w-2 h-2 bg-[#8B93A5] rounded-full animate-bounce [animation-delay:-0.3s]" />
+              <span className="w-2 h-2 bg-[#8B93A5] rounded-full animate-bounce [animation-delay:-0.15s]" />
+              <span className="w-2 h-2 bg-[#8B93A5] rounded-full animate-bounce" />
+            </div>
+          </div>
         )}
       </div>
 
