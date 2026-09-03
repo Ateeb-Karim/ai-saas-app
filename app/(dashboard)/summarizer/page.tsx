@@ -6,6 +6,8 @@ import { JSX } from "react/jsx-runtime";
 import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import ShowCard from "../_components/showcard";
+import { setHistory } from "@/lib/history";
+import { randomUUID } from "crypto";
 
 export default function SummarizerPage(): JSX.Element {
   const [text, setText] = useState<string>("");
@@ -32,6 +34,13 @@ export default function SummarizerPage(): JSX.Element {
 
       const data = await response.json();
       setSummary(data.summary);
+      setHistory({
+        id: randomUUID(),
+        tool: "summarizer",
+        input: text,
+        output: data.summary,
+        timestamp: Date.now(),
+      });
       setIsLoading(false);
     } catch (e) {
       setIsLoading(false);
