@@ -82,16 +82,14 @@ export default function ChatAssistant(): React.JSX.Element {
             <div className="flex items-center justify-center p-2 rounded-xl bg-[#0A0E14] border border-[#2A2F3A] shrink-0">
               <Bot className="h-5 w-5 text-blue-500" />
             </div>
-            <div
-              ref={messagesEndRef}
-              className="p-3 border border-[#2A2F3A] rounded-2xl rounded-tl-xs bg-linear-to-br from-[#141924] to-[#1E222D] flex items-center gap-1"
-            >
+            <div className="p-3 border border-[#2A2F3A] rounded-2xl rounded-tl-xs bg-linear-to-br from-[#141924] to-[#1E222D] flex items-center gap-1">
               <span className="w-2 h-2 bg-[#8B93A5] rounded-full animate-bounce [animation-delay:-0.3s]" />
               <span className="w-2 h-2 bg-[#8B93A5] rounded-full animate-bounce [animation-delay:-0.15s]" />
               <span className="w-2 h-2 bg-[#8B93A5] rounded-full animate-bounce" />
             </div>
           </div>
         )}
+        <div ref={messagesEndRef} />
       </div>
 
       <form

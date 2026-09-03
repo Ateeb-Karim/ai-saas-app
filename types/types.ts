@@ -42,3 +42,21 @@ export interface Length {
   title: string;
   active: boolean;
 }
+
+export type ToolHistoryEnrtry = {
+  id: string;
+  tool: "blog" | "code" | "email" | "image" | "summarizer";
+  input: string;
+  output: string;
+  timestamp: number;
+};
+
+export type ChatHistoryEntry = {
+  id: string;
+  tool: "chat";
+  title: string;
+  messages: { role: "user" | "model"; content: string }[];
+  timestamp: number;
+};
+
+export type HistoryEntry = ToolHistoryEnrtry | ChatHistoryEntry;
