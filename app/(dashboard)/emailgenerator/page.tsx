@@ -7,6 +7,7 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Tone } from "@/types/types";
 import toast from "react-hot-toast";
+import { setHistory } from "@/lib/history";
 
 export default function EmailGenerator(): JSX.Element {
   const [purpose, setPurpose] = useState<string>("");
@@ -53,8 +54,14 @@ export default function EmailGenerator(): JSX.Element {
 
       const data = await response.json();
       setEmail(data.email);
+      setHistory({
+        id: crypto.randomUUID(),
+        tool: "email",
+        input: purpose,
+        output: data.email,
+        timestamp: Date.now(),
+      });
       setIsLoading(false);
-      console.log(email);
     } catch (e) {
       setIsLoading(false);
       toast.error("Failed to generate email. Please try again", {

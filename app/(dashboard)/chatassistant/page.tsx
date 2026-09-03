@@ -6,6 +6,7 @@ import UserStyle from "../_components/userStyle";
 import ShowCard from "../_components/showcard";
 import ModelStyle from "../_components/modelStyle";
 import toast from "react-hot-toast";
+import { setHistory } from "@/lib/history";
 
 export default function ChatAssistant(): React.JSX.Element {
   const [input, setInput] = useState<string>("");
@@ -51,6 +52,13 @@ export default function ChatAssistant(): React.JSX.Element {
 
       const data = await response.json();
       setMessages((prev) => [...prev, { role: "model", content: data.reply }]);
+      setHistory({
+        id: crypto.randomUUID(),
+        tool: "chat",
+        title: data.title,
+        messages: [...messages, { role: "model", content: data.reply }],
+        timestamp: Date.now(),
+      });
     } catch (error) {
       console.error("failed to send message");
       toast.error("Failed to send message");

@@ -35,7 +35,7 @@ export default function SummarizerPage(): JSX.Element {
       const data = await response.json();
       setSummary(data.summary);
       setHistory({
-        id: randomUUID(),
+        id: crypto.randomUUID(),
         tool: "summarizer",
         input: text,
         output: data.summary,
@@ -45,12 +45,13 @@ export default function SummarizerPage(): JSX.Element {
     } catch (e) {
       setIsLoading(false);
       toast.error("Failed to generate summary. Please try again", {
-        duration: 500,
+        duration: 1000,
         position: "top-center",
         className: "bg-[#0A0E14] text-white border border-[#2A2F3A] rounded-lg",
         iconTheme: { primary: "#3B82F6", secondary: "#F5F6F8" },
         id: "error-toast",
       });
+      console.log(e);
     }
   };
 

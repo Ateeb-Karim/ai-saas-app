@@ -7,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import toast from "react-hot-toast";
+import { setHistory } from "@/lib/history";
 
 export default function CodeGenerator(): JSX.Element {
   const [prompt, setPrompt] = useState<string>("");
@@ -33,6 +34,13 @@ export default function CodeGenerator(): JSX.Element {
 
       const data = await response.json();
       setResult(data.result);
+      setHistory({
+        id: crypto.randomUUID(),
+        tool: "code",
+        input: prompt,
+        output: data.result,
+        timestamp: Date.now(),
+      });
     } catch (e) {
       toast.error("Failed to generate code. Please try again", {
         duration: 3000,

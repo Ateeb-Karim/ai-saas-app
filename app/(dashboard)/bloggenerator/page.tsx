@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Length, Tone } from "@/types/types";
 import ReactMarkdown from "react-markdown";
 import toast from "react-hot-toast";
+import { setHistory } from "@/lib/history";
 
 export default function BlogGenerator(): JSX.Element {
   const [topic, setTopic] = useState<string>("");
@@ -69,6 +70,13 @@ export default function BlogGenerator(): JSX.Element {
 
       const data = await response.json();
       setBlog(data.blog);
+      setHistory({
+        id: crypto.randomUUID(),
+        tool: "blog",
+        input: topic,
+        output: data.blog,
+        timestamp: Date.now(),
+      });
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);

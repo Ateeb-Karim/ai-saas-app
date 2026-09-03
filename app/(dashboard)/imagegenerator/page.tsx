@@ -5,6 +5,7 @@ import ShowCard from "../_components/showcard";
 import { Download, Image, Loader2 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { setHistory } from "@/lib/history";
 
 export default function ImageGenerator(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -32,6 +33,13 @@ export default function ImageGenerator(): JSX.Element {
       }
       const data = await response.json();
       setImageUrl(data.imageUrl);
+      setHistory({
+        id: crypto.randomUUID(),
+        tool: "image",
+        input: prompt,
+        output: data.imageUrl,
+        timestamp: Date.now(),
+      });
     } catch (error) {
       setIsLoading(false);
       toast.error("Failed to generate image. Please try again", {
