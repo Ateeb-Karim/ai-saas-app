@@ -12,10 +12,14 @@ export default function ChatAssistant(): React.JSX.Element {
   const [input, setInput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<
-    { role: "user" | "model"; content: string }[]
+    Array<{
+      role: "user" | "model";
+      content: string;
+    }>
   >([]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const conversationIdRef = useRef<string | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -25,13 +29,20 @@ export default function ChatAssistant(): React.JSX.Element {
     scrollToBottom();
   }, [messages, isLoading]);
 
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!input.trim()) return;
 
-    setMessages((prev) => [...prev, { role: "user", content: input }]);
+    const userMessage = { role: "user" as const, content: input };
+    const updatedMessages = [...messages, userMessage];
+
+    setMessages(updatedMessages);
     setInput("");
+
+    if (!conversationIdRef.current) {
+      conversationIdRef.current = crypto.randomUUID();
+    }
 
     setIsLoading(true);
     try {
@@ -51,12 +62,16 @@ export default function ChatAssistant(): React.JSX.Element {
       }
 
       const data = await response.json();
-      setMessages((prev) => [...prev, { role: "model", content: data.reply }]);
+      const modelMessage = { role: "model" as const, content: data.reply };
+      const finalMessages = [...updatedMessages, modelMessage];
+
+      setMessages(finalMessages);
+
       setHistory({
-        id: crypto.randomUUID(),
+        id: conversationIdRef.current,
         tool: "chat",
-        title: data.title,
-        messages: [...messages, { role: "model", content: data.reply }],
+        title: updatedMessages[0].content.slice(0, 60),
+        messages: finalMessages,
         timestamp: Date.now(),
       });
     } catch (error) {
