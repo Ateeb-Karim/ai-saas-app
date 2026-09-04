@@ -36,7 +36,7 @@ export default function ImageGenerator(): JSX.Element {
       setHistory({
         id: crypto.randomUUID(),
         tool: "image",
-        input: prompt,
+        title: prompt,
         output: data.imageUrl,
         timestamp: Date.now(),
       });

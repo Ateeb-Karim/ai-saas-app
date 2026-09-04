@@ -37,7 +37,7 @@ export default function CodeGenerator(): JSX.Element {
       setHistory({
         id: crypto.randomUUID(),
         tool: "code",
-        input: prompt,
+        title: prompt,
         output: data.result,
         timestamp: Date.now(),
       });

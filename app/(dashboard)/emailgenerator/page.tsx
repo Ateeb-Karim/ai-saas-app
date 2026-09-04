@@ -57,7 +57,7 @@ export default function EmailGenerator(): JSX.Element {
       setHistory({
         id: crypto.randomUUID(),
         tool: "email",
-        input: purpose,
+        title: purpose,
         output: data.email,
         timestamp: Date.now(),
       });

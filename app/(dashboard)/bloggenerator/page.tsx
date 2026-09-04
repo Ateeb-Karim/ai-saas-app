@@ -73,7 +73,7 @@ export default function BlogGenerator(): JSX.Element {
       setHistory({
         id: crypto.randomUUID(),
         tool: "blog",
-        input: topic,
+        title: topic,
         output: data.blog,
         timestamp: Date.now(),
       });

@@ -37,7 +37,7 @@ export default function SummarizerPage(): JSX.Element {
       setHistory({
         id: crypto.randomUUID(),
         tool: "summarizer",
-        input: text,
+        title: text,
         output: data.summary,
         timestamp: Date.now(),
       });
