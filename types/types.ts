@@ -46,7 +46,7 @@ export interface Length {
 export type ToolHistoryEnrtry = {
   id: string;
   tool: "blog" | "code" | "email" | "image" | "summarizer";
-  input: string;
+  title: string;
   output: string;
   timestamp: number;
 };

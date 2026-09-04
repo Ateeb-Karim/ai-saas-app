@@ -41,7 +41,7 @@ export default function SideBar({
 
         <Link
           onClick={() => setIsOpen?.(false)}
-          href="/dashboard/history"
+          href="/history"
           className="flex items-center gap-2 text-left px-2 py-2 rounded hover:bg-[#1A1F2B] w-full"
         >
           <RotateCcwClock className="h-5 w-5" />
@@ -49,7 +49,7 @@ export default function SideBar({
         </Link>
         <Link
           onClick={() => setIsOpen?.(false)}
-          href="/dashboard/settings"
+          href="/settings"
           className="flex items-center gap-2 text-left px-2 py-2 rounded hover:bg-[#1A1F2B] w-full"
         >
           <Settings className="h-5 w-5" />
