@@ -63,58 +63,37 @@ export default function HistoryPage(): React.JSX.Element {
               key={i}
               className="bg-[#151B22] rounded-lg p-4 w-full flex items-center justify-center border border-[#2a2f3a]"
             >
-              {entry.tool === "chat" && (
-                <>
-                  <div className="w-full flex items-center gap-2">
-                    <div className="p-2 bg-[#12161F] rounded-lg">
-                      <MessageCircle className="h-6 w-6 text-blue-500" />
-                    </div>
-                    <div>
-                      <p className="text-lg text-[#F5F6F8]">{entry.title}</p>
-                      <p className="text-[#8B93A5] font-normal text-sm">
-                        {entry.tool} .{" "}
-                        {new Date(entry.timestamp).toLocaleString()}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="p-3 bg-[#12161F] text-red-500 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white active:scale-95">
-                    <Trash2Icon />
-                  </div>
-                </>
-              )}
-              {entry.tool !== "chat" && (
-                <>
-                  <div className="w-full flex items-center gap-2">
-                    <div className="p-2 bg-[#12161F] rounded-lg">
-                      {entry.tool === "blog" && (
-                        <Book className="h-6 w-6 text-blue-500" />
-                      )}
-                      {entry.tool === "code" && (
-                        <Code className="h-6 w-6 text-blue-500" />
-                      )}
-                      {entry.tool === "email" && (
-                        <Mail className="h-6 w-6 text-blue-500" />
-                      )}
-                      {entry.tool === "image" && (
-                        <Image className="h-6 w-6 text-blue-500" />
-                      )}
-                      {entry.tool === "summarizer" && (
-                        <FileText className="h-6 w-6 text-blue-500" />
-                      )}
-                    </div>
-                    <div>
-                      <p className="text-lg text-[#F5F6F8]">{entry.title}</p>
-                      <p className="text-[#8B93A5] font-normal text-sm">
-                        {entry.tool} .{" "}
-                        {new Date(entry.timestamp).toLocaleString()}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="p-3 bg-[#12161F] text-red-500 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white active:scale-95 transition-all duration-200">
-                    <Trash2Icon />
-                  </div>
-                </>
-              )}
+              <div className="w-full flex items-center gap-2">
+                <div className="p-2 bg-[#12161F] rounded-lg">
+                  {entry.tool === "chat" && (
+                    <MessageCircle className="h-6 w-6 text-blue-500" />
+                  )}
+                  {entry.tool === "blog" && (
+                    <Book className="h-6 w-6 text-blue-500" />
+                  )}
+                  {entry.tool === "code" && (
+                    <Code className="h-6 w-6 text-blue-500" />
+                  )}
+                  {entry.tool === "email" && (
+                    <Mail className="h-6 w-6 text-blue-500" />
+                  )}
+                  {entry.tool === "image" && (
+                    <Image className="h-6 w-6 text-blue-500" />
+                  )}
+                  {entry.tool === "summarizer" && (
+                    <FileText className="h-6 w-6 text-blue-500" />
+                  )}
+                </div>
+                <div>
+                  <p className="text-lg text-[#F5F6F8]">{entry.title}</p>
+                  <p className="text-[#8B93A5] font-normal text-sm">
+                    {entry.tool} . {new Date(entry.timestamp).toLocaleString()}
+                  </p>
+                </div>
+              </div>
+              <div className="p-3 bg-[#12161F] text-red-500 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white active:scale-95 transition-all duration-200">
+                <Trash2Icon />
+              </div>
             </div>
           );
         })}
