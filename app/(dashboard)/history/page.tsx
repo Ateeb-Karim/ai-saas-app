@@ -47,6 +47,11 @@ export default function HistoryPage(): React.JSX.Element {
           Track your previous generations and access them anytime.
         </p>
       </div>
+      {history.length === 0 && (
+        <div className="w-full flex flex-col items-center justify-center gap-3.5">
+          <p className="text-lg text-[#F5F6F8]">No history found</p>
+        </div>
+      )}
       <div className="w-full mt-3">
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2 mt-1">
           {filterType.map((type: FilterType, i: number) => (
@@ -62,7 +67,7 @@ export default function HistoryPage(): React.JSX.Element {
         </div>
       </div>
       <div className="w-full flex flex-col gap-2.5">
-        {history.map((item: HistoryEntry, i: number): JSX.Element => {
+        {history.map((historyItem: HistoryEntry, i: number): JSX.Element => {
           return (
             <div
               key={i}
@@ -70,29 +75,30 @@ export default function HistoryPage(): React.JSX.Element {
             >
               <div className="w-full flex items-center gap-2">
                 <div className="p-2 bg-[#12161F] rounded-lg">
-                  {item.tool === "chat" && (
+                  {historyItem.tool === "chat" && (
                     <MessageCircle className="h-6 w-6 text-blue-500" />
                   )}
-                  {item.tool === "blog" && (
+                  {historyItem.tool === "blog" && (
                     <Book className="h-6 w-6 text-blue-500" />
                   )}
-                  {item.tool === "code" && (
+                  {historyItem.tool === "code" && (
                     <Code className="h-6 w-6 text-blue-500" />
                   )}
-                  {item.tool === "email" && (
+                  {historyItem.tool === "email" && (
                     <Mail className="h-6 w-6 text-blue-500" />
                   )}
-                  {item.tool === "image" && (
+                  {historyItem.tool === "image" && (
                     <Image className="h-6 w-6 text-blue-500" />
                   )}
-                  {item.tool === "summarizer" && (
+                  {historyItem.tool === "summarizer" && (
                     <FileText className="h-6 w-6 text-blue-500" />
                   )}
                 </div>
                 <div>
-                  <p className="text-lg text-[#F5F6F8]">{item.title}</p>
+                  <p className="text-lg text-[#F5F6F8]">{historyItem.title}</p>
                   <p className="text-[#8B93A5] font-normal text-sm">
-                    {item.tool} . {new Date(item.timestamp).toLocaleString()}
+                    {historyItem.tool} .{" "}
+                    {new Date(historyItem.timestamp).toLocaleString()}
                   </p>
                 </div>
               </div>
