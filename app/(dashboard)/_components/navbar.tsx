@@ -1,6 +1,7 @@
 import { JSX } from "react/jsx-runtime";
 import Hamburger from "./Hamburger";
 import { auth } from "@/auth";
+import AvatarMenu from "./avatarMenu";
 
 export default async function Navbar(): Promise<JSX.Element> {
   const session = await auth();
@@ -17,11 +18,7 @@ export default async function Navbar(): Promise<JSX.Element> {
             ? `${session?.user?.name?.charAt(0)?.toUpperCase()}${session?.user?.name?.slice(1)}`
             : "User"}
         </span>
-        <div className="w-8 h-8 rounded-full bg-[#1A1F2B] flex items-center justify-center text-white font-semibold">
-          {session?.user?.name
-            ? `${session?.user?.name.charAt(0).toUpperCase()}`
-            : "U"}
-        </div>
+        <AvatarMenu name={session?.user?.name} email={session?.user?.email} />
       </div>
     </header>
   );
