@@ -12,11 +12,13 @@ export default function ShowCard({
   description,
 }: ShowCardProps): JSX.Element {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 w-full">
       <div className="p-2 bg-[#12161F] rounded-lg">{icon}</div>
-      <div>
-        <p className="text-lg text-[#F5F6F8]">{title}</p>
-        <p className="text-[#8B93A5] font-normal text-sm">{description}</p>
+      <div className="flex flex-col">
+        <p className="text-xl font-semibold tracking-wide text-[#F5F6F8]">
+          {title}
+        </p>
+        <p className="text-[#8B93A5] text-sm">{description}</p>
       </div>
     </div>
   );
