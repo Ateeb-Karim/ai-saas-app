@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { JSX, useEffect, useState } from "react";
 import { FilterType, HistoryEntry } from "@/types/types";
+import { clearHistory, deleteHistory } from "@/lib/history";
 
 export default function HistoryPage(): React.JSX.Element {
   const [filterType, setFilterType] = useState<FilterType[]>([
@@ -24,6 +25,14 @@ export default function HistoryPage(): React.JSX.Element {
   ]);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
 
+  const activeFilter =
+    filterType.find((type: FilterType) => type.active)?.type ?? "all";
+
+  const filteredHistory = history.filter(
+    (item: HistoryEntry) =>
+      activeFilter === "all" || item.tool === activeFilter,
+  );
+
   const toggleActive = (i: number) => {
     setFilterType(
       filterType.map((type: FilterType, idx: number) => ({
@@ -31,6 +40,11 @@ export default function HistoryPage(): React.JSX.Element {
         active: i === idx,
       })),
     );
+  };
+
+  const deleteItem = (id: string) => {
+    deleteHistory(id);
+    setHistory((prev) => prev.filter((entry) => entry.id !== id));
   };
 
   useEffect(() => {
@@ -41,13 +55,27 @@ export default function HistoryPage(): React.JSX.Element {
 
   return (
     <div className="flex flex-col items-start gap-3.5 w-full h-full text-[#F5F6F8] px-4 sm:px-0">
-      <div className="w-full">
-        <h1 className="text-3xl font-bold">History</h1>
-        <p className="text-gray-500 font-medium text-xs mt-1">
-          Track your previous generations and access them anytime.
-        </p>
+      <div className="w-full flex justify-between">
+        <div className="flex flex-col">
+          <h1 className="text-3xl font-bold">History</h1>
+          <p className="text-gray-500 font-medium text-xs mt-1">
+            Track your previous generations and access them anytime.
+          </p>
+        </div>
+        <div className="flex items-center justify-end">
+          <button
+            onClick={() => {
+              clearHistory();
+              setHistory([]);
+            }}
+            className="p-2 bg-[#12161F] text-red-500 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white active:scale-95 transition-all duration-200 flex items-center gap-2"
+          >
+            <p className="text-sm font-medium">Clear History</p>
+            <Trash2Icon className="h-4 w-4" />
+          </button>
+        </div>
       </div>
-      {history.length === 0 && (
+      {filteredHistory.length === 0 && (
         <div className="w-full flex flex-col items-center justify-center gap-3.5">
           <p className="text-lg text-[#F5F6F8]">No history found</p>
         </div>
@@ -67,47 +95,54 @@ export default function HistoryPage(): React.JSX.Element {
         </div>
       </div>
       <div className="w-full flex flex-col gap-2.5">
-        {history.map((historyItem: HistoryEntry, i: number): JSX.Element => {
-          return (
-            <div
-              key={i}
-              className="bg-[#151B22] rounded-lg p-4 w-full flex items-center justify-center border border-[#2a2f3a]"
-            >
-              <div className="w-full flex items-center gap-2">
-                <div className="p-2 bg-[#12161F] rounded-lg">
-                  {historyItem.tool === "chat" && (
-                    <MessageCircle className="h-6 w-6 text-blue-500" />
-                  )}
-                  {historyItem.tool === "blog" && (
-                    <Book className="h-6 w-6 text-blue-500" />
-                  )}
-                  {historyItem.tool === "code" && (
-                    <Code className="h-6 w-6 text-blue-500" />
-                  )}
-                  {historyItem.tool === "email" && (
-                    <Mail className="h-6 w-6 text-blue-500" />
-                  )}
-                  {historyItem.tool === "image" && (
-                    <Image className="h-6 w-6 text-blue-500" />
-                  )}
-                  {historyItem.tool === "summarizer" && (
-                    <FileText className="h-6 w-6 text-blue-500" />
-                  )}
+        {filteredHistory.map(
+          (historyItem: HistoryEntry, i: number): JSX.Element => {
+            return (
+              <div
+                key={i}
+                className="bg-[#151B22] rounded-lg p-4 w-full flex items-center justify-center border border-[#2a2f3a]"
+              >
+                <div className="w-full flex items-center gap-2">
+                  <div className="p-2 bg-[#12161F] rounded-lg">
+                    {historyItem.tool === "chat" && (
+                      <MessageCircle className="h-6 w-6 text-blue-500" />
+                    )}
+                    {historyItem.tool === "blog" && (
+                      <Book className="h-6 w-6 text-blue-500" />
+                    )}
+                    {historyItem.tool === "code" && (
+                      <Code className="h-6 w-6 text-blue-500" />
+                    )}
+                    {historyItem.tool === "email" && (
+                      <Mail className="h-6 w-6 text-blue-500" />
+                    )}
+                    {historyItem.tool === "image" && (
+                      <Image className="h-6 w-6 text-blue-500" />
+                    )}
+                    {historyItem.tool === "summarizer" && (
+                      <FileText className="h-6 w-6 text-blue-500" />
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-lg text-[#F5F6F8]">
+                      {historyItem.title}
+                    </p>
+                    <p className="text-[#8B93A5] font-normal text-sm">
+                      {historyItem.tool} .{" "}
+                      {new Date(historyItem.timestamp).toLocaleString()}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-lg text-[#F5F6F8]">{historyItem.title}</p>
-                  <p className="text-[#8B93A5] font-normal text-sm">
-                    {historyItem.tool} .{" "}
-                    {new Date(historyItem.timestamp).toLocaleString()}
-                  </p>
-                </div>
+                <button
+                  onClick={() => deleteItem(historyItem.id)}
+                  className="p-3 bg-[#12161F] text-red-500 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white active:scale-95 transition-all duration-200"
+                >
+                  <Trash2Icon />
+                </button>
               </div>
-              <div className="p-3 bg-[#12161F] text-red-500 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white active:scale-95 transition-all duration-200">
-                <Trash2Icon />
-              </div>
-            </div>
-          );
-        })}
+            );
+          },
+        )}
       </div>
     </div>
   );
