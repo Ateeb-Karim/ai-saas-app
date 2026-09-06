@@ -25,7 +25,7 @@ export default function EmailGenerator(): JSX.Element {
     setTones(
       tones.map((tone: Tone, idx) => ({
         ...tone,
-        active: i == idx,
+        active: i === idx,
       })),
     );
   };

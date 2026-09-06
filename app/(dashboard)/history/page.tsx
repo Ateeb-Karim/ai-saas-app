@@ -7,22 +7,36 @@ import {
   Image,
   Mail,
   MessageCircle,
-  SearchIcon,
   Trash2Icon,
 } from "lucide-react";
 import { JSX, useEffect, useState } from "react";
-import { HistoryEntry } from "@/types/types";
-import { clearHistory } from "@/lib/history";
+import { FilterType, HistoryEntry } from "@/types/types";
 
 export default function HistoryPage(): React.JSX.Element {
-  const [input, setInput] = useState<string>("");
-  const [entries, setEntries] = useState<HistoryEntry[]>([]);
+  const [filterType, setFilterType] = useState<FilterType[]>([
+    { type: "all", active: true },
+    { type: "chat", active: false },
+    { type: "blog", active: false },
+    { type: "code", active: false },
+    { type: "email", active: false },
+    { type: "image", active: false },
+    { type: "summarizer", active: false },
+  ]);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+
+  const toggleActive = (i: number) => {
+    setFilterType(
+      filterType.map((type: FilterType, idx: number) => ({
+        ...type,
+        active: i === idx,
+      })),
+    );
+  };
 
   useEffect(() => {
     const data = localStorage.getItem("history");
     if (!data) return;
-    setEntries(JSON.parse(data));
-    console.log(JSON.parse(data));
+    setHistory(JSON.parse(data));
   }, []);
 
   return (
@@ -33,31 +47,22 @@ export default function HistoryPage(): React.JSX.Element {
           Track your previous generations and access them anytime.
         </p>
       </div>
-      <div className="w-full flex items-center gap-2">
-        <div className="w-full flex items-center gap-2 px-3 py-3 outline-none bg-[#0F141A] border border-[#2A2F3A] rounded-lg text-sm sm:text-md">
-          <SearchIcon className="w-4 h-4 text-[#8B93A5]" />
-          <input
-            type="text"
-            name="search"
-            id="search"
-            placeholder="Search history by tool or keyword..."
-            className="outline-none w-full bg-transparent"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-        </div>
-        <div
-          onClick={() => {
-            clearHistory();
-            setEntries([]);
-          }}
-          className="p-3 bg-[#12161F] text-red-500 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white active:scale-95 border border-[#2A2F3A]"
-        >
-          <Trash2Icon />
+      <div className="w-full mt-3">
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2 mt-1">
+          {filterType.map((type: FilterType, i: number) => (
+            <button
+              key={i}
+              onClick={() => toggleActive(i)}
+              className={`w-full px-2 py-3 outline-none cursor-pointer bg-[#0F141A] border border-[#2A2F3A] rounded-lg text-sm sm:text-md transition-all duration-200 hover:bg-blue-600 active:scale-95
+                ${filterType[i].active ? "bg-blue-700 text-white" : "text-[#F5F6F8]"}`}
+            >
+              {type.type}
+            </button>
+          ))}
         </div>
       </div>
       <div className="w-full flex flex-col gap-2.5">
-        {entries.map((entry: HistoryEntry, i: number): JSX.Element => {
+        {history.map((item: HistoryEntry, i: number): JSX.Element => {
           return (
             <div
               key={i}
@@ -65,29 +70,29 @@ export default function HistoryPage(): React.JSX.Element {
             >
               <div className="w-full flex items-center gap-2">
                 <div className="p-2 bg-[#12161F] rounded-lg">
-                  {entry.tool === "chat" && (
+                  {item.tool === "chat" && (
                     <MessageCircle className="h-6 w-6 text-blue-500" />
                   )}
-                  {entry.tool === "blog" && (
+                  {item.tool === "blog" && (
                     <Book className="h-6 w-6 text-blue-500" />
                   )}
-                  {entry.tool === "code" && (
+                  {item.tool === "code" && (
                     <Code className="h-6 w-6 text-blue-500" />
                   )}
-                  {entry.tool === "email" && (
+                  {item.tool === "email" && (
                     <Mail className="h-6 w-6 text-blue-500" />
                   )}
-                  {entry.tool === "image" && (
+                  {item.tool === "image" && (
                     <Image className="h-6 w-6 text-blue-500" />
                   )}
-                  {entry.tool === "summarizer" && (
+                  {item.tool === "summarizer" && (
                     <FileText className="h-6 w-6 text-blue-500" />
                   )}
                 </div>
                 <div>
-                  <p className="text-lg text-[#F5F6F8]">{entry.title}</p>
+                  <p className="text-lg text-[#F5F6F8]">{item.title}</p>
                   <p className="text-[#8B93A5] font-normal text-sm">
-                    {entry.tool} . {new Date(entry.timestamp).toLocaleString()}
+                    {item.tool} . {new Date(item.timestamp).toLocaleString()}
                   </p>
                 </div>
               </div>

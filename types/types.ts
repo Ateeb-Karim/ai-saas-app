@@ -60,3 +60,8 @@ export type ChatHistoryEntry = {
 };
 
 export type HistoryEntry = ToolHistoryEnrtry | ChatHistoryEntry;
+
+export interface FilterType {
+  type: string;
+  active: boolean;
+}
