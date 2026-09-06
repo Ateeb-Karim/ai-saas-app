@@ -1,11 +1,10 @@
 import { JSX } from "react";
 import Link from "next/link";
-import ShowCard from "../_components/showcard";
-import { Pencil, User } from "lucide-react";
+import ShowCard from "../../_components/showcard";
+import { User, ArrowLeft } from "lucide-react";
 import { auth } from "@/auth";
-import EditProfilePage from "./edit/page";
 
-export default async function ProfilePage(): Promise<JSX.Element> {
+export default async function EditProfilePage(): Promise<JSX.Element> {
   const session = await auth();
 
   return (
@@ -30,13 +29,14 @@ export default async function ProfilePage(): Promise<JSX.Element> {
           </div>
         </div>
         <Link
-          href="/profile/edit"
+          href="/dashboard"
           className="flex items-center gap-2 bg-[#12161F] border border-[#2A2F3A] px-3 py-2 rounded-md cursor-pointer hover:border-blue-500 hover:text-blue-500 hover:scale-105 transition-all capitalize"
         >
-          <Pencil className="h-4 w-4" />
-          <span className="text-sm">edit profile</span>
+          <ArrowLeft className="h-4 w-4" />
+          <span className="text-sm">back to dashboard</span>
         </Link>
       </div>
+      <div className="w-full"></div>
     </div>
   );
 }
