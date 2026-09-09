@@ -4,7 +4,8 @@ import { JSX, useEffect, useState } from "react";
 import Link from "next/link";
 import ShowCard from "../../_components/showcard";
 import { User, ArrowLeft } from "lucide-react";
-import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import { auth } from "@/auth";
 
 export default function EditProfilePage(): JSX.Element {
   const [formData, setFormData] = useState({
@@ -12,16 +13,18 @@ export default function EditProfilePage(): JSX.Element {
     email: "",
   });
 
-  const { data: session } = useSession();
-
   useEffect(() => {
-    if (session?.user) {
-      setFormData({
-        name: session.user.name || "",
-        email: session.user.email || "",
-      });
+    async function getProfile() {
+      const session = await auth();
+      if (session?.user) {
+        setFormData({
+          name: session.user.name || "",
+          email: session.user.email || "",
+        });
+      }
     }
-  }, [session]);
+    getProfile();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,9 +34,27 @@ export default function EditProfilePage(): JSX.Element {
     }));
   };
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error);
+      }
+
+      const data = await res.json();
+      toast.success(data.success);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -46,15 +67,15 @@ export default function EditProfilePage(): JSX.Element {
       <div className="w-full flex items-center justify-between border-b border-[#2A2F3A] pb-5">
         <div className="flex items-center gap-5">
           <div className="w-15 h-15 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold text-xl border-2 border-blue-400">
-            {session?.user?.name?.charAt(0)?.toUpperCase() || "U"}
+            {formData.name.charAt(0).toUpperCase() || "U"}
           </div>
           <div>
             <p className="text-[#F5F6F8] text-xl font-medium">
-              {session?.user?.name
-                ? `${session.user.name.charAt(0).toUpperCase()}${session.user.name.slice(1)}`
+              {formData.name
+                ? `${formData.name.charAt(0).toUpperCase()}${formData.name.slice(1)}`
                 : "User"}
             </p>
-            <p className="text-[#F5F6F8] text-sm">{session?.user?.email}</p>
+            <p className="text-[#F5F6F8] text-sm">{formData.email}</p>
           </div>
         </div>
         <Link
@@ -70,7 +91,7 @@ export default function EditProfilePage(): JSX.Element {
         <div className="w-full flex flex-col border-b border-[#2A2F3A] pb-5">
           <h3 className="text-xl font-bold text-[#F5F6F8]">Edit Profile</h3>
           <p className="text-[#8B93A5] text-sm">
-            Manage your profile and account settings
+            update your profile information
           </p>
         </div>
         <form onSubmit={handleSubmit} className="w-full flex flex-col mt-2">
