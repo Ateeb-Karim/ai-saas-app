@@ -5,7 +5,7 @@ import Link from "next/link";
 import ShowCard from "../../_components/showcard";
 import { User, ArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
-import { auth } from "@/auth";
+import { useSession } from "next-auth/react";
 
 export default function EditProfilePage(): JSX.Element {
   const [formData, setFormData] = useState({
@@ -13,18 +13,16 @@ export default function EditProfilePage(): JSX.Element {
     email: "",
   });
 
+  const { data: session, update } = useSession();
+
   useEffect(() => {
-    async function getProfile() {
-      const session = await auth();
-      if (session?.user) {
-        setFormData({
-          name: session.user.name || "",
-          email: session.user.email || "",
-        });
-      }
+    if (session?.user) {
+      setFormData({
+        name: session.user.name || "",
+        email: session.user.email || "",
+      });
     }
-    getProfile();
-  }, []);
+  }, [session]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -50,8 +48,10 @@ export default function EditProfilePage(): JSX.Element {
         throw new Error(data.error);
       }
 
+      await update();
+
       const data = await res.json();
-      toast.success(data.success);
+      toast.success(data.message);
     } catch (error: any) {
       toast.error(error.message);
     }
