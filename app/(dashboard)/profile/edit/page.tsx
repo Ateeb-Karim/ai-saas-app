@@ -11,6 +11,7 @@ export default function EditProfilePage(): JSX.Element {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    password: "",
   });
 
   const { data: session, update } = useSession();
@@ -20,6 +21,7 @@ export default function EditProfilePage(): JSX.Element {
       setFormData({
         name: session.user.name || "",
         email: session.user.email || "",
+        password: "",
       });
     }
   }, [session]);
@@ -53,37 +55,28 @@ export default function EditProfilePage(): JSX.Element {
       const data = await res.json();
       toast.success(data.message);
     } catch (error: any) {
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Something went wrong");
+      }
     }
   };
 
   return (
     <div className="flex flex-col gap-5 items-start w-full h-full text-[#F5F6F8] px-4 sm:px-0">
-      <ShowCard
-        icon={<User className="h-6 w-6 text-blue-500" />}
-        title="Profile"
-        description="Manage your profile and account settings"
-      />
       <div className="w-full flex items-center justify-between border-b border-[#2A2F3A] pb-5">
-        <div className="flex items-center gap-5">
-          <div className="w-15 h-15 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold text-xl border-2 border-blue-400">
-            {formData.name.charAt(0).toUpperCase() || "U"}
-          </div>
-          <div>
-            <p className="text-[#F5F6F8] text-xl font-medium">
-              {formData.name
-                ? `${formData.name.charAt(0).toUpperCase()}${formData.name.slice(1)}`
-                : "User"}
-            </p>
-            <p className="text-[#F5F6F8] text-sm">{formData.email}</p>
-          </div>
-        </div>
+        <ShowCard
+          icon={<User className="h-6 w-6 text-blue-500" />}
+          title="Profile"
+          description="Manage your profile and account settings"
+        />
         <Link
-          href="/dashboard"
+          href="/profile"
           className="flex items-center gap-2 bg-[#12161F] border border-[#2A2F3A] px-3 py-2 rounded-md cursor-pointer hover:border-blue-500 hover:text-blue-500 hover:scale-105 transition-all capitalize"
         >
           <ArrowLeft className="h-4 w-4" />
-          <span className="text-sm">back to dashboard</span>
+          <span className="text-sm capitalize">back</span>
         </Link>
       </div>
 
@@ -110,7 +103,7 @@ export default function EditProfilePage(): JSX.Element {
           </div>
           <div className="w-full">
             <label htmlFor="email" className="text-[#F5F6F8] text-lg">
-              password
+              email
             </label>
             <input
               type="email"
@@ -118,6 +111,18 @@ export default function EditProfilePage(): JSX.Element {
               name="email"
               className="w-full bg-[#12161F] border border-[#2A2F3A] px-3 py-2 rounded-md cursor-pointer capitalize outline-none"
               value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full">
+            <label htmlFor="password" className="text-[#F5F6F8] text-lg">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="w-full bg-[#12161F] border border-[#2A2F3A] px-3 py-2 rounded-md cursor-pointer capitalize outline-none"
               onChange={handleChange}
             />
           </div>
