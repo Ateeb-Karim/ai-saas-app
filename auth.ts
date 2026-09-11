@@ -63,7 +63,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             id: token.id as string,
           },
         });
-
         if (user) {
           session.user.name = user.name;
           session.user.email = user.email;

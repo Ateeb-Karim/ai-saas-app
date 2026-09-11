@@ -3,7 +3,6 @@ import Link from "next/link";
 import ShowCard from "../_components/showcard";
 import { Pencil, User } from "lucide-react";
 import { auth } from "@/auth";
-import EditProfilePage from "./edit/page";
 
 export default async function ProfilePage(): Promise<JSX.Element> {
   const session = await auth();
@@ -26,7 +25,7 @@ export default async function ProfilePage(): Promise<JSX.Element> {
                 ? `${session.user.name.charAt(0).toUpperCase()}${session.user.name.slice(1)}`
                 : "User"}
             </p>
-            <p className="text-[#F5F6F8] text-sm">{session?.user?.email}</p>
+            <p className="text-[#8B93A5] text-sm">{session?.user?.email}</p>
           </div>
         </div>
         <Link

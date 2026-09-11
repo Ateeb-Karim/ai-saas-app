@@ -117,32 +117,26 @@ export default function EditProfilePage(): JSX.Element {
           title="Profile"
           description="Manage your profile and account settings"
         />
-
         <Link
           href="/profile"
           className="flex items-center gap-2 bg-[#12161F] border border-[#2A2F3A] px-3 py-2 rounded-md cursor-pointer hover:border-blue-500 hover:text-blue-500 hover:scale-105 transition-all capitalize"
         >
           <ArrowLeft className="h-4 w-4" />
-
           <span className="text-sm capitalize">back</span>
         </Link>
       </div>
-
       <div className="w-full p-5 border border-[#2A2F3A] rounded-lg">
         <div className="w-full flex flex-col border-b border-[#2A2F3A] pb-5">
           <h3 className="text-xl font-bold text-[#F5F6F8]">Edit Profile</h3>
-
           <p className="text-[#8B93A5] text-sm">
             update your profile information
           </p>
         </div>
-
         <form onSubmit={handleSubmit} className="w-full flex flex-col mt-2">
           <div className="w-full flex flex-col">
             <label htmlFor="name" className="text-[#F5F6F8] text-lg">
               Name
             </label>
-
             <input
               type="text"
               id="name"
@@ -152,12 +146,10 @@ export default function EditProfilePage(): JSX.Element {
               onChange={handleChange}
             />
           </div>
-
           <div className="w-full">
             <label htmlFor="email" className="text-[#F5F6F8] text-lg">
               Email
             </label>
-
             <input
               type="email"
               id="email"
@@ -167,12 +159,10 @@ export default function EditProfilePage(): JSX.Element {
               onChange={handleChange}
             />
           </div>
-
           <div className="w-full">
             <label htmlFor="password" className="text-[#F5F6F8] text-lg">
               Current Password
             </label>
-
             <input
               type="password"
               id="password"
@@ -204,7 +194,6 @@ export default function EditProfilePage(): JSX.Element {
               onChange={handleChange}
             />
           </div>
-
           <div className="w-full flex gap-5 mt-5 justify-end">
             <button
               type="submit"
