@@ -11,19 +11,20 @@ import { JSX } from "react/jsx-runtime";
 // };
 
 export default function DeleteAccount(): JSX.Element {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
 
   return (
     <>
       <button
-        onClick={() => setLoading((prev) => !prev)}
+        onClick={() => setOpen((prev) => !prev)}
         className={`w-full sm:w-auto bg-[#e22828] border border-[#2A2F3A] px-6 py-2 rounded-lg text-[#F5F6F8] cursor-pointer transition-all duration-200 hover:bg-[#d80b0b] active:scale-95
-            ${loading ? "opacity-80 cursor-not-allowed" : ""}`}
+            ${open ? "opacity-80 cursor-not-allowed" : ""}`}
       >
         Delete
       </button>
 
-      {loading && (
+      {open && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 border border-[#2A2F3A] rounded-lg px-4 py-4 ">
           <div className="bg-[#12161F] shadow-2xl shadow-black/30 p-5 rounded-lg flex flex-col gap-3 items-center justify-center">
             <p className="text-lg font-medium">
@@ -37,13 +38,23 @@ export default function DeleteAccount(): JSX.Element {
                 type="password"
                 placeholder="Enter your password"
                 className="w-full sm:w-auto bg-[#12161F] border border-[#2A2F3A] px-6 py-2 rounded-lg text-[#F5F6F8] cursor-pointer transition-all duration-200 hover:bg-[#1A1F2B] active:scale-95 outline-none"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <button
-                onClick={() => setLoading(false)}
-                className="w-full sm:w-auto bg-[#e22828] border border-[#2A2F3A] px-6 py-2 rounded-lg text-[#F5F6F8] cursor-pointer transition-all duration-200 hover:bg-[#d80b0b] active:scale-95"
-              >
-                Delete Permanently
-              </button>
+              <div className="flex items-center justify-center gap-2 w-full sm:w-auto">
+                <button
+                  onClick={() => setOpen(false)}
+                  className="w-full sm:w-auto bg-[#e22828] border border-[#2A2F3A] px-6 py-2 rounded-lg text-[#F5F6F8] cursor-pointer transition-all duration-200 hover:bg-[#d80b0b] active:scale-95"
+                >
+                  Delete Permanently
+                </button>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="w-full sm:w-auto bg-[#1A1F2B] border border-[#2A2F3A] px-6 py-2 rounded-lg text-[#F5F6F8] cursor-pointer transition-all duration-200 hover:bg-[#d80b0b] active:scale-95"
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>
