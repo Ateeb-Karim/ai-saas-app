@@ -2,7 +2,7 @@ import { JSX } from "react/jsx-runtime";
 import ShowCard from "../_components/showcard";
 import { Download, Info, LogOut, Settings, Trash, Trash2 } from "lucide-react";
 import Link from "next/link";
-import DownlaodDataBtn from "./_components/downloadData";
+import DownloadDataBtn from "./_components/downloadData";
 
 export default function SettingPage(): JSX.Element {
   return (
@@ -44,7 +44,7 @@ export default function SettingPage(): JSX.Element {
           </div>
         </div>
         <div className="flex items-center">
-          <DownlaodDataBtn />
+          <DownloadDataBtn />
         </div>
       </div>
 
