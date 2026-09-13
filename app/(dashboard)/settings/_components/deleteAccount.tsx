@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { JSX } from "react";
 import toast from "react-hot-toast";
@@ -22,7 +23,7 @@ export default function DeleteAccount(): JSX.Element {
     setPassword("");
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!password.trim()) {
       toast.error("Please enter your password", {
         ...toastStyle,
@@ -31,7 +32,31 @@ export default function DeleteAccount(): JSX.Element {
       return;
     }
 
-    // TODO: wire actual DELETE /api/account call here
+    try {
+      const router = useRouter();
+
+      const response = await fetch("/api/deleteAccount", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.message, toastStyle);
+        return;
+      }
+
+      toast.success(data.message, toastStyle);
+      closeModal();
+      router.push("/");
+    } catch (error) {
+      console.error("ERROR:", error);
+      toast.error("Internal server error", toastStyle);
+    }
   };
 
   return (
