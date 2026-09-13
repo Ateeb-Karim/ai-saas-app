@@ -3,6 +3,7 @@ import ShowCard from "../_components/showcard";
 import { Download, Info, LogOut, Settings, Trash, Trash2 } from "lucide-react";
 import Link from "next/link";
 import DownloadDataBtn from "./_components/downloadData";
+import LogOutBtn from "./_components/logOutBtn";
 
 export default function SettingPage(): JSX.Element {
   return (
@@ -57,9 +58,7 @@ export default function SettingPage(): JSX.Element {
           </div>
         </div>
         <div className="flex items-center">
-          <button className="w-full sm:w-auto bg-[#12161F] border border-[#2A2F3A] px-6 py-2 mt-2 rounded-lg text-[#F5F6F8] cursor-pointer transition-all duration-200 hover:bg-[#1A1F2B] active:scale-95">
-            Logout
-          </button>
+          <LogOutBtn />
         </div>
       </div>
 
