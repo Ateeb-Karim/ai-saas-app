@@ -118,10 +118,10 @@ export default function EditProfilePage(): JSX.Element {
         <ShowCard
           icon={<User className="h-6 w-6 text-blue-500" />}
           title="Profile"
-          description="Manage your profile and account settings"
+          description="Update your profile information"
         />
         <Link
-          href="/dashboard/profile"
+          href="/profile"
           className="flex items-center justify-center gap-2 bg-[#12161F] border border-[#2A2F3A] px-3 py-2 rounded-md cursor-pointer hover:border-blue-500 hover:text-blue-500 hover:scale-105 transition-all capitalize w-full sm:w-auto shrink-0"
         >
           <ArrowLeft className="h-4 w-4" />

@@ -38,7 +38,7 @@ export default async function ProfilePage(): Promise<JSX.Element> {
           </div>
         </div>
         <Link
-          href="/dashboard/profile/edit"
+          href="/profile/edit"
           className="flex items-center justify-center gap-2 bg-[#12161F] border border-[#2A2F3A] px-3 py-2 rounded-md cursor-pointer hover:border-blue-500 hover:text-blue-500 hover:scale-105 transition-all capitalize w-full sm:w-auto"
         >
           <Pencil className="h-4 w-4" />
