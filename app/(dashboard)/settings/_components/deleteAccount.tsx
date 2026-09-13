@@ -1,9 +1,11 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { JSX } from "react";
 import toast from "react-hot-toast";
+import { signOut } from "next-auth/react";
+import { clearHistory } from "@/lib/history";
 
 const toastStyle = {
   duration: 3000,
@@ -13,6 +15,7 @@ const toastStyle = {
 };
 
 export default function DeleteAccount(): JSX.Element {
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,9 +35,9 @@ export default function DeleteAccount(): JSX.Element {
       return;
     }
 
-    try {
-      const router = useRouter();
+    setLoading(true);
 
+    try {
       const response = await fetch("/api/deleteAccount", {
         method: "DELETE",
         headers: {
@@ -46,16 +49,21 @@ export default function DeleteAccount(): JSX.Element {
       const data = await response.json();
 
       if (!response.ok) {
-        toast.error(data.message, toastStyle);
+        toast.error(data.message || "Failed to delete account", toastStyle);
+        setLoading(false);
         return;
       }
 
-      toast.success(data.message, toastStyle);
-      closeModal();
+      toast.success(data.message || "Account deleted", toastStyle);
+      clearHistory();
+      setOpen(false);
+      setPassword("");
+      await signOut({ redirect: false });
       router.push("/");
     } catch (error) {
       console.error("ERROR:", error);
       toast.error("Internal server error", toastStyle);
+      setLoading(false);
     }
   };
 
