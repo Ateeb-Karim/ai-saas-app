@@ -14,7 +14,7 @@ import {
   Newspaper,
 } from "lucide-react";
 import { getHistory } from "@/lib/history";
-import { HistoryEntry } from "@/types/types";
+import type { HistoryEntry } from "@/types/types";
 import { formatDistanceToNow } from "date-fns";
 
 const toolIconMap: Record<string, JSX.Element> = {
@@ -56,7 +56,7 @@ export default function DashboardPage(): JSX.Element {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)] w-full bg-[#0A0E14] font-sans items-center py-8">
       <div className="w-full max-w-5xl flex flex-col px-4 sm:px-8 md:px-12 lg:px-16">
-        <div className="flex flex-col justify-start items-start gap-1 py-6 mt-4 md:mt-8">
+        <div className="flex flex-col justify-start items-start gap-1">
           <h1 className="text-[#F5F6F8] text-xl sm:text-2xl font-bold">
             Welcome back, {displayName}
           </h1>
@@ -77,11 +77,13 @@ export default function DashboardPage(): JSX.Element {
           <DashboardCards heading="Current Plan" description="Free" />
         </div>
 
-        <div className="flex flex-col w-full py-4">
+        <div className="flex flex-col w-full">
           <p className="text-[#8B93A5] text-sm mb-4">Recent activity</p>
           <div className="flex flex-col gap-2">
             {recentActivity.length === 0 ? (
-              <p className="text-[#8B93A5] text-sm">No activity yet.</p>
+              <div className="w-full flex justify-center items-center p-4 rounded-lg border border-[#8B93A5]">
+                <p className="text-[#8B93A5] text-sm">No activity yet.</p>
+              </div>
             ) : (
               recentActivity.map((entry) => (
                 <Activity
