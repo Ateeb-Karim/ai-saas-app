@@ -14,14 +14,38 @@ export default function SigninPage(): JSX.Element {
     email: "",
     password: "",
   });
+  const [emailValid, setEmailValid] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const EmailChecking = (email: string): boolean => {
+    return email.includes("@") && email.includes(".");
+  };
+
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const isEmailValid: boolean = EmailChecking(formData.email);
+
+    console.log(isEmailValid);
+
+    if (!isEmailValid) {
+      toast.error("Invalid email", {
+        icon: "❌",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+        position: "top-center",
+        duration: 3000,
+      });
+      setEmailValid((prev) => !prev);
+      return;
+    }
 
     const result = await signIn("credentials", {
       email: formData.email,
@@ -84,10 +108,16 @@ export default function SigninPage(): JSX.Element {
           value={formData.email}
           onChange={handleChange}
           placeholder="Enter your email"
-          className="w-full border border-gray-500 rounded-md px-3 py-2 outline-none"
+          className={`w-full border ${emailValid ? "border-red-500" : "border-gray-500"} rounded-md px-3 py-2 outline-none`}
           required
         />
+        {emailValid && (
+          <p className="text-sm text-center text-red-500">
+            Please enter a valid email
+          </p>
+        )}
       </div>
+
       <div className="flex flex-col gap-1">
         <label htmlFor="password" className="text-sm font-medium">
           Password
