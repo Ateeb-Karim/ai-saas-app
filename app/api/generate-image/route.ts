@@ -1,8 +1,16 @@
+import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
     const { prompt } = await request.json();
+
+    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_KEY });
+
+    const image = await ai.models.generateContent({
+      model: "gemini-2.5-flash-image",
+      contents: prompt,
+    });
 
     if (!prompt) {
       return NextResponse.json(

@@ -7,11 +7,11 @@ import { prisma } from "@/lib/prisma";
 export async function POST(request: Request) {
   const { name, email, password }: SignUpPOSTrequest = await request.json();
 
-  const existingUser = await prisma.user.findUnique({
+  const isExistingUser = await prisma.user.findUnique({
     where: { email },
   });
 
-  if (existingUser) {
+  if (isExistingUser) {
     return NextResponse.json(
       { error: "email already in use" },
       { status: 409 },

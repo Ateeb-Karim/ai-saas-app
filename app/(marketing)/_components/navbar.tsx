@@ -9,8 +9,8 @@ export default function Navbar(): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const links: LINKtype[] = [
+    { name: "Home", href: "/#home" },
     { name: "Features", href: "/#features" },
-    { name: "Pricing", href: "/#pricing" },
     { name: "FAQs", href: "/#faqs" },
     { name: "Contact", href: "/#contact" },
   ];

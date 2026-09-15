@@ -7,7 +7,7 @@ export default function ContactPage() {
   return (
     <section
       id="contact"
-      className="flex flex-col justify-center items-center gap-10 px-4 py-16 sm:px-10 sm:py-20 lg:px-20"
+      className="flex flex-col justify-center items-center gap-10 px-4 py-16 sm:px-10 sm:py-20 lg:px-20 mt-10"
     >
       <div className="flex flex-col items-center gap-2">
         <div className="flex items-center gap-2 rounded-full p-2 px-3 bg-blue-500/10 border border-blue-500/20">

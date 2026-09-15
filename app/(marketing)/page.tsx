@@ -9,7 +9,7 @@ export default function MarketingPage() {
     <>
       <Hero />
       <FeaturesPage />
-      <PricingPage />
+      {/* <PricingPage /> */}
       <FaqsPage />
       <ContactPage />
     </>
