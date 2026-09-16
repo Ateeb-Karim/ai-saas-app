@@ -75,7 +75,6 @@ export default function ChatAssistant(): React.JSX.Element {
         timestamp: Date.now(),
       });
     } catch (error) {
-      console.error("failed to send message");
       toast.error("Failed to send message");
     } finally {
       setIsLoading(false);

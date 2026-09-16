@@ -2,15 +2,13 @@
 
 import { SignupFormType } from "@/types/types";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { JSX } from "react/jsx-runtime";
-import { Eye, EyeOff, LockKeyhole, Mail, Sparkles, User } from "lucide-react";
+import { Eye, EyeOff, LockKeyhole, Mail, User } from "lucide-react";
 
 export default function SignupPage(): JSX.Element {
-  const router = useRouter();
-
   const [formData, setFormData] = useState<SignupFormType>({
     name: "",
     email: "",
@@ -18,7 +16,6 @@ export default function SignupPage(): JSX.Element {
     confirmPassword: "",
   });
 
-  // UI only
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
@@ -62,7 +59,7 @@ export default function SignupPage(): JSX.Element {
       return;
     }
 
-    router.push("/signin");
+    redirect("/signin");
   };
 
   return (

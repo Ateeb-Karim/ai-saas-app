@@ -8,7 +8,7 @@ export default function Hero(): JSX.Element {
       id="home"
       className="flex flex-col justify-center items-center gap-10 px-4  sm:px-10 sm:py-20 lg:px-20"
     >
-      <div className="flex flex-col md:flex-row justify-center items-center px-4 sm:px-10 py-10 sm:py-15 gap-y-10 md:gap-y-0">
+      <div className="flex flex-col md:flex-row justify-center items-center px-4 sm:px-10 sm:py-15 gap-y-10 md:gap-y-0">
         <div className="w-full md:w-1/2 md:ml-2 order-2 md:order-2">
           <div className="transform md:skew-y-3 w-full max-w-md mx-auto bg-[#1b1c28] rounded-3xl p-5 text-white font-sans shadow-2xl">
             <div className="flex items-center gap-1.5 mb-6">
