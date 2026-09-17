@@ -62,10 +62,10 @@ export default function Hero(): JSX.Element {
               Get started
             </Link>
             <Link
-              href="/#pricing"
+              href="/signin"
               className="rounded-xl border border-blue-500 text-blue-500 px-4 py-2 hover:border-blue-600 hover:bg-blue-500 transition-all duration-200 cursor-pointer hover:text-white hover:scale-105"
             >
-              see pricing
+              sign in
             </Link>
           </div>
         </div>

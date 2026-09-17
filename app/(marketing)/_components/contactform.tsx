@@ -18,7 +18,7 @@ export default function ContactForm(): JSX.Element {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     toast("Message sent successfully", {
@@ -38,7 +38,7 @@ export default function ContactForm(): JSX.Element {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="name" className="block text-sm mb-2">
+        <label htmlFor="name" className="block text-sm">
           Name
         </label>
         <input
@@ -54,7 +54,7 @@ export default function ContactForm(): JSX.Element {
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm mb-2">
+        <label htmlFor="email" className="block text-sm">
           Email
         </label>
         <input
@@ -70,7 +70,7 @@ export default function ContactForm(): JSX.Element {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm mb-2">
+        <label htmlFor="message" className="block text-sm">
           Message
         </label>
         <textarea

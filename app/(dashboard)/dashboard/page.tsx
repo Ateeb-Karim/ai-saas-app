@@ -65,7 +65,7 @@ export default function DashboardPage(): JSX.Element {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 w-full py-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8 w-full">
           <DashboardCards
             heading="Generations this month"
             description={`${recentCount}`}
@@ -74,11 +74,10 @@ export default function DashboardPage(): JSX.Element {
             heading="Tools used"
             description={`${toolsUsed} / 6`}
           />
-          <DashboardCards heading="Current Plan" description="Free" />
         </div>
 
         <div className="flex flex-col w-full">
-          <p className="text-[#8B93A5] text-sm mb-4">Recent activity</p>
+          <p className="text-[#8B93A5] text-sm mt-4">Recent activity</p>
           <div className="flex flex-col gap-2">
             {recentActivity.length === 0 ? (
               <div className="w-full flex justify-center items-center p-4 rounded-lg border border-[#8B93A5]">
